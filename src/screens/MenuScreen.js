@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 
-function MenuScreen(props) {
+function MenuScreen({ navigation }) {
 	return (
 		<View style={styles.container}>
 			<Text>MenuScreen</Text>
+			<Button title="Play" onPress={() => navigation.navigate("GameScreen")} />
 		</View>
 	);
 }
