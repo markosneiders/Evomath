@@ -1,21 +1,7 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-
+import MenuScreen from "./src/screens/MenuScreen";
+import "react-native-gesture-handler";
+import { AppNavigator } from "./src/routes/AppNavigator";
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>EVOMATH</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+	return <AppNavigator />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
