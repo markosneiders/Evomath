@@ -7,16 +7,20 @@ import MenuScreen from "../screens/MenuScreen";
 const Stack = createNativeStackNavigator();
 
 function HomeNavigator() {
-	return (
-		<Stack.Navigator>
-			<Stack.Screen name="HomeScreen" component={MenuScreen} options={{}} />
-			<Stack.Screen name="GameScreen" component={GameScreen} options={{}} />
-		</Stack.Navigator>
-	);
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="HomeScreen"
+        component={MenuScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="GameScreen" component={GameScreen} options={{}} />
+    </Stack.Navigator>
+  );
 }
 export const AppNavigator = () => (
-	//Exports navigator to be imported in App.js
-	<NavigationContainer>
-		<HomeNavigator />
-	</NavigationContainer>
+  //Exports navigator to be imported in App.js
+  <NavigationContainer>
+    <HomeNavigator />
+  </NavigationContainer>
 );
