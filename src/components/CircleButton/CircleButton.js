@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import { Dimensions } from "react-native";
+import { Icon } from "react-native-vector-icons/MaterialIcons";
 function CircleButton(props) {
 	const windowWidth = Dimensions.get("window").width;
 	const windowHeight = Dimensions.get("window").height;
