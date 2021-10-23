@@ -1,22 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import CircleButton from "../components/CircleButton/CircleButton";
-//import { Dimensions } from "react-native";
+import { Dimensions } from "react-native";
 function MenuScreen({ navigation }) {
-	//const windowWidth = Dimensions.get("window").width;
-	//const windowHeight = Dimensions.get("window").height;
+	const windowWidth = Dimensions.get("window").width;
+	const windowHeight = Dimensions.get("window").height;
 	return (
 		<View style={styles.container}>
 			<View style={{ flex: 1 }}>
 				<Image
 					source={require("../assets/photos/evomathpng.png")}
 					style={{
-						resizeMode: "contain",
+						resizeMode: "cover",
 						height: "100%",
 						width: "100%",
 						transform: [{ rotate: "10deg" }],
 						flex: 1,
+						marginTop: 60,
 					}}
 				/>
 			</View>
