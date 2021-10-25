@@ -14,7 +14,11 @@ function HomeNavigator() {
         component={MenuScreen}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="GameScreen" component={GameScreen} options={{}} />
+      <Stack.Screen
+        name="GameScreen"
+        component={GameScreen}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 }
