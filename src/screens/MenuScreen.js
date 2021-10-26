@@ -10,12 +10,11 @@ import {
 import { out } from "react-native/Libraries/Animated/src/Easing";
 import CircleButton from "../components/CircleButton/CircleButton";
 
-//import { Dimensions } from "react-native";
+import { Dimensions } from "react-native";
 
 function MenuScreen({ navigation }) {
-  // const windowHeight = Dimensions.get("window").height;
-	// const windowWidth = Dimensions.get("window").width;
-	// const windowHeight = Dimensions.get("window").height;
+	const windowWidth = Dimensions.get("window").width;
+	const windowHeight = Dimensions.get("window").height;
 	const rotv = useRef(new Animated.Value(0)).current;
 	useEffect(() => {
 		rotate(Easing.inOut(Easing.ease));
@@ -47,6 +46,19 @@ function MenuScreen({ navigation }) {
 
 	return (
 		<View style={styles.root}>
+			<View>
+				<Image
+					source={require("../assets/photos/evomath-bg-one.png")}
+					blurRadius={3}
+					style={{
+						position: "absolute",
+						transform: [{ rotate: "0deg" }],
+						resizeMode: "repeat",
+						height: windowHeight,
+						width: windowWidth,
+					}}
+				/>
+			</View>
 			<View style={{ flex: 1 }}>
 				<Animated.Image
 					source={require("../assets/photos/evomathpng.png")}
