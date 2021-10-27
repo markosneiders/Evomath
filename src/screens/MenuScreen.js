@@ -60,7 +60,7 @@ function MenuScreen({ navigation }) {
 	const bgs = bgsv.interpolate({
 		//background scroll value interpolation
 		inputRange: [0, 1],
-		outputRange: [0, windowHeight * 2],
+		outputRange: [0, windowHeight * 3],
 	});
 
 	return (
@@ -69,7 +69,7 @@ function MenuScreen({ navigation }) {
 				style={{
 					transform: [
 						{ rotate: "45deg" },
-						{ scale: 2 },
+						{ scale: 1.5 },
 						{ translateX: 1 },
 						{ translateY: windowHeight * -5 },
 					],
