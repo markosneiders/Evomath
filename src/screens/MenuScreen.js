@@ -16,8 +16,10 @@ function MenuScreen({ navigation }) {
 	const windowWidth = Dimensions.get("window").width;
 	const windowHeight = Dimensions.get("window").height;
 	const rotv = useRef(new Animated.Value(0)).current;
+	const sizv = useRef(new Animated.Value(0)).current;
 	useEffect(() => {
 		rotate(Easing.inOut(Easing.ease));
+		sizing(Easing.inOut(Easing.ease));
 	}, []);
 
 	const rotate = (easing) => {
@@ -39,14 +41,38 @@ function MenuScreen({ navigation }) {
 		).start();
 	};
 
+	const sizing = (easing) => {
+		Animated.loop(
+			Animated.sequence([
+				Animated.timing(sizv, {
+					toValue: 1,
+					duration: 4000,
+					useNativeDriver: true,
+					easing,
+				}),
+				Animated.timing(sizv, {
+					toValue: 0,
+					duration: 4000,
+					useNativeDriver: true,
+					easing,
+				}),
+			])
+		).start();
+	};
+
 	const rot = rotv.interpolate({
 		inputRange: [0, 1],
 		outputRange: ["-10deg", "10deg"],
 	});
 
+	const siz = sizv.interpolate({
+		inputRange: [0, 1],
+		outputRange: [1, 2],
+	});
+
 	return (
 		<View style={styles.root}>
-			<View>
+			{/*<View>
 				<Image
 					source={require("../assets/photos/evomath-bg-one.png")}
 					blurRadius={3}
@@ -58,8 +84,14 @@ function MenuScreen({ navigation }) {
 						width: windowWidth,
 					}}
 				/>
-			</View>
-			<View style={{ flex: 1 }}>
+				</View> */}
+			<View
+				style={{
+					flex: 1,
+					alignItems: "center",
+					marginHorizontal: "20%",
+				}}
+			>
 				<Animated.Image
 					source={require("../assets/photos/evomathpng.png")}
 					style={{
@@ -68,12 +100,12 @@ function MenuScreen({ navigation }) {
 						width: "100%",
 						transform: [{ rotate: rot }],
 						flex: 1,
-						top: "20%",
+						position: "absolute",
 					}}
 				/>
 			</View>
 			<View style={styles.optionContainer}>
-				<View style={{ top: "-30%", right: "20%" }}>
+				<View style={{ top: "-30%", right: "20%", backgroundColor: "red" }}>
 					<TouchableOpacity onPress={() => navigation.navigate("GameScreen")}>
 						<CircleButton Text={"Quick Play"} Color={"#5240C0"} Size={220} />
 					</TouchableOpacity>
