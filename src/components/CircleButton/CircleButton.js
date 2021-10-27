@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { Text, Easing, Animated, StyleSheet } from "react-native";
 import { Dimensions } from "react-native";
 import { Icon } from "react-native-vector-icons/MaterialIcons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 function CircleButton(props) {
 	// const windowWidth = Dimensions.get("window").width;
 	// const windowHeight = Dimensions.get("window").height;
@@ -48,7 +49,17 @@ function CircleButton(props) {
 				},
 			]}
 		>
-			<Text style={styles.buttonText}>{props.Text}</Text>
+			{props.Icon == null ? (
+				<Text style={[styles.buttonText, { fontSize: props.TextSize }]}>
+					{props.Text}
+				</Text>
+			) : (
+				<MaterialCommunityIcons
+					name={props.Icon}
+					size={props.IconSize}
+					color={"#fff"}
+				/>
+			)}
 		</Animated.View>
 	);
 }
@@ -66,11 +77,13 @@ const styles = StyleSheet.create({
 		},
 		shadowOpacity: 0.34,
 		shadowRadius: 6.27,
+		paddingHorizontal: 10,
 	},
 	buttonText: {
 		color: "white",
 		fontWeight: "700",
 		fontSize: 23,
+		textAlign: "center",
 	},
 });
 
