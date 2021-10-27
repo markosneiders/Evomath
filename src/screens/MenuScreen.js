@@ -108,7 +108,7 @@ function MenuScreen({ navigation }) {
 				/>
 			</View>
 			<View style={styles.optionContainer}>
-				<View style={{ top: "-30%", right: "20%", backgroundColor: "red" }}>
+				<View style={{ top: "-30%", right: "20%" }}>
 					<TouchableOpacity onPress={() => navigation.navigate("GameScreen")}>
 						<CircleButton
 							Text={"Quick Play"}

@@ -1,11 +1,59 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useRef, useEffect } from "react";
+import { View, Text, StyleSheet, Animated, Easing } from "react-native";
 import AnwserOption from "../components/AnswerOption/AnwserOption";
+import TouchableScale from "react-native-touchable-scale";
 
 function GameScreen() {
+	const pgv = useRef(new Animated.Value(1)).current;
+	const Progress = () => {
+		Animated.timing(pgv, {
+			toValue: 0,
+			duration: 3000, //time for bar
+			useNativeDriver: false,
+			easing: Easing.linear,
+		}).start();
+	};
+	const ProgressR = () => {
+		Animated.timing(pgv, {
+			toValue: 1,
+			duration: 300, //time for bar reset
+			useNativeDriver: false,
+			easing: Easing.linear,
+		}).start();
+	};
+	const pgw = pgv.interpolate({
+		//logo rotation value interpolation
+		inputRange: [0, 1],
+		outputRange: ["0%", "100%"],
+	});
+	const pgc = pgv.interpolate({
+		//logo rotation value interpolation
+		inputRange: [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.5, 1],
+		outputRange: [
+			"red",
+			"#B22D2D",
+			"red",
+			"#B22D2D",
+			"red",
+			"#B22D2D",
+			"red",
+			"orange",
+			"#32DD2E",
+		],
+	});
 	return (
 		<View style={styles.root}>
 			<View style={styles.questionContainer}>
+				<Animated.View
+					style={{
+						backgroundColor: pgc,
+						flex: 1,
+						position: "absolute",
+						width: pgw,
+						height: "100%",
+						alignSelf: "flex-start",
+					}}
+				/>
 				<Text
 					style={{
 						fontSize: 50,
@@ -23,7 +71,7 @@ function GameScreen() {
 							fontWeight: "700",
 						}}
 					>
-						12
+						10
 					</Text>
 				</View>
 				<View style={styles.score}>
@@ -48,52 +96,20 @@ function GameScreen() {
 				</View>
 			</View>
 			<View style={styles.optionsContainer}>
-				{/* <AnwserOption text="2" />
-        <AnwserOption text="2" />
-        <AnwserOption text="2" />
-        <AnwserOption text="2" /> */}
-				<View style={styles.option}>
-					<Text
-						style={{
-							fontSize: 35,
-							fontWeight: "700",
-						}}
-					>
-						9
-					</Text>
-				</View>
-				<View style={styles.option}>
-					<Text
-						style={{
-							fontSize: 35,
-							fontWeight: "700",
-						}}
-					>
-						3
-					</Text>
-				</View>
+				<TouchableScale style={{ flex: 1 }} onPress={() => Progress()}>
+					<AnwserOption text="1" color="#B22D2D" />
+				</TouchableScale>
+				<TouchableScale style={{ flex: 1 }} onPress={() => ProgressR()}>
+					<AnwserOption text="2" color="#5240C0" />
+				</TouchableScale>
 			</View>
-			<View style={styles.optionsContainer}>
-				<View style={styles.option}>
-					<Text
-						style={{
-							fontSize: 35,
-							fontWeight: "700",
-						}}
-					>
-						7
-					</Text>
-				</View>
-				<View style={styles.option}>
-					<Text
-						style={{
-							fontSize: 35,
-							fontWeight: "700",
-						}}
-					>
-						4
-					</Text>
-				</View>
+			<View style={[styles.optionsContainer, { marginBottom: 20 }]}>
+				<TouchableScale style={{ flex: 1 }}>
+					<AnwserOption text="3" color="#FEC601" />
+				</TouchableScale>
+				<TouchableScale style={{ flex: 1 }}>
+					<AnwserOption text="4" color="#48A646" />
+				</TouchableScale>
 			</View>
 		</View>
 	);
@@ -102,7 +118,7 @@ function GameScreen() {
 const styles = StyleSheet.create({
 	root: {
 		flex: 1,
-		backgroundColor: "#fff",
+		backgroundColor: "#f2f2f2",
 		alignItems: "center",
 		justifyContent: "center",
 	},
@@ -135,29 +151,7 @@ const styles = StyleSheet.create({
 		width: "100%",
 		backgroundColor: "#f2f2f2",
 		flexDirection: "row",
-		alignItems: "center",
 		justifyContent: "space-evenly",
-	},
-	option: {
-		alignItems: "center",
-		justifyContent: "center",
-		paddingLeft: "15%",
-		paddingRight: "15%",
-		paddingBottom: "20%",
-		paddingTop: "20%",
-		borderRadius: 25,
-		borderWidth: 1,
-		backgroundColor: "#5240C0",
-
-		shadowColor: "#000",
-		shadowOffset: {
-			width: 0,
-			height: 7,
-		},
-		shadowOpacity: 0.43,
-		shadowRadius: 9.51,
-
-		elevation: 15,
 	},
 });
 
