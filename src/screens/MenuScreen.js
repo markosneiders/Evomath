@@ -1,13 +1,8 @@
 import React, { useEffect, useRef } from "react";
-import {
-	View,
-	StyleSheet,
-	Image,
-	TouchableOpacity,
-	Animated,
-	Easing,
-} from "react-native";
-import CircleButton from "../components/CircleButton/CircleButton";
+import { View, StyleSheet, Image, Animated, Easing } from "react-native";
+import TouchableScale from "react-native-touchable-scale";
+
+import CircleButton from "../components/CircleButton/CircleButton"; //self made component imports
 import Background from "../components/Background/Background";
 
 import { Dimensions } from "react-native";
@@ -71,47 +66,55 @@ function MenuScreen({ navigation }) {
 			</View>
 			<View style={styles.optionContainer}>
 				<View style={{ top: "-30%", right: "20%" }}>
-					<TouchableOpacity onPress={() => navigation.navigate("GameScreen")}>
+					<TouchableScale onPress={() => navigation.navigate("GameScreen")}>
 						<CircleButton
 							Text={"Quick Play"}
 							TextSize={50}
 							Color={"#5240C0"}
 							Size={220}
 						/>
-					</TouchableOpacity>
+					</TouchableScale>
 				</View>
 				<View style={{ top: "-5%", right: "-20%" }}>
-					<CircleButton
-						Text={"Modes"}
-						TextSize={50}
-						Color={"#FEC601"}
-						Size={200}
-					/>
+					<TouchableScale onPress={() => navigation.navigate("ModeScreen")}>
+						<CircleButton
+							Text={"Modes"}
+							TextSize={50}
+							Color={"#FEC601"}
+							Size={200}
+						/>
+					</TouchableScale>
 				</View>
 				<View style={{ top: "15%", right: "20%" }}>
-					<CircleButton
-						Text={"Leaderboards"}
-						TextSize={45}
-						Color={"#48A646"}
-						Size={180}
-					/>
+					<TouchableScale>
+						<CircleButton
+							Text={"Leaderboards"}
+							TextSize={45}
+							Color={"#48A646"}
+							Size={180}
+						/>
+					</TouchableScale>
 				</View>
 				<View style={{ top: "25%", right: "-28%" }}>
-					<CircleButton
-						Icon={"account"}
-						IconSize={50}
-						TextSize={30}
-						Color={"#B22D2D"}
-						Size={100}
-					/>
+					<TouchableScale>
+						<CircleButton
+							Icon={"account"}
+							IconSize={50}
+							TextSize={30}
+							Color={"#B22D2D"}
+							Size={100}
+						/>
+					</TouchableScale>
 				</View>
 				<View style={{ top: "37%", right: "-0%" }}>
-					<CircleButton
-						Icon={"cog"}
-						IconSize={50}
-						Color={"#AA6373"}
-						Size={100}
-					/>
+					<TouchableScale>
+						<CircleButton
+							Icon={"cog"}
+							IconSize={50}
+							Color={"#AA6373"}
+							Size={100}
+						/>
+					</TouchableScale>
 				</View>
 			</View>
 		</View>

@@ -24,14 +24,14 @@ function Background(props) {
 	const bgs = bgsv.interpolate({
 		//background scroll value interpolation
 		inputRange: [0, 1],
-		outputRange: [0, windowHeight * 3],
+		outputRange: [0, windowHeight * 2],
 	});
 	return (
 		<View
 			style={{
 				transform: [
 					{ rotate: "45deg" },
-					{ scale: 1.5 },
+					{ scale: 2 },
 					{ translateX: 1 },
 					{ translateY: windowHeight * -5 },
 				],
@@ -39,7 +39,7 @@ function Background(props) {
 		>
 			<Animated.Image
 				source={require("../../assets/photos/evomath-bg-one.png")}
-				blurRadius={3}
+				blurRadius={2}
 				style={{
 					position: "absolute",
 					transform: [{ translateY: bgs }],
