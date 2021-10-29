@@ -32,7 +32,7 @@ function AccountScreen({ navigation }) {
 		}
 	};
 	return (
-		<View style={{ flex: 1 }}>
+		<View style={{ flex: 1, overflow: "hidden" }}>
 			<Background />
 
 			<View style={styles.container}>
@@ -51,6 +51,8 @@ function AccountScreen({ navigation }) {
 							<CircleButton
 								Icon={"account"}
 								IconSize={100}
+								Text={"Edit"}
+								TextSize={20}
 								Color={"#B22D2D"}
 								Size={170}
 							/>

@@ -50,11 +50,6 @@ function CircleButton(props) {
 				},
 			]}
 		>
-			{props.Text != null && (
-				<Text style={[styles.buttonText, { fontSize: props.TextSize }]}>
-					{props.Text}
-				</Text>
-			)}
 			{props.Icon != null && (
 				<MaterialCommunityIcons
 					name={props.Icon}
@@ -71,6 +66,11 @@ function CircleButton(props) {
 						borderRadius: props.ImageBorder,
 					}}
 				/>
+			)}
+			{props.Text != null && (
+				<Text style={[styles.buttonText, { fontSize: props.TextSize }]}>
+					{props.Text}
+				</Text>
 			)}
 		</Animated.View>
 	);
