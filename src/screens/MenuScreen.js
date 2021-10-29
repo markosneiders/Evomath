@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { View, StyleSheet, Image, Animated, Easing } from "react-native";
+import { View, StyleSheet, Alert, Animated, Easing } from "react-native";
 import TouchableScale from "react-native-touchable-scale";
 
 import CircleButton from "../components/CircleButton/CircleButton"; //self made component imports
@@ -86,7 +86,11 @@ function MenuScreen({ navigation }) {
 					</TouchableScale>
 				</View>
 				<View style={{ top: "15%", right: "20%" }}>
-					<TouchableScale>
+					<TouchableScale
+						onPress={() =>
+							Alert.alert("Coming soon!", "Leaderboards are coming soon.")
+						}
+					>
 						<CircleButton
 							Text={"Leaderboards"}
 							TextSize={45}
@@ -96,7 +100,11 @@ function MenuScreen({ navigation }) {
 					</TouchableScale>
 				</View>
 				<View style={{ top: "25%", right: "-28%" }}>
-					<TouchableScale>
+					<TouchableScale
+						onPress={() =>
+							Alert.alert("Coming soon!", "Accounts are coming soon.")
+						}
+					>
 						<CircleButton
 							Icon={"account"}
 							IconSize={50}
@@ -107,7 +115,11 @@ function MenuScreen({ navigation }) {
 					</TouchableScale>
 				</View>
 				<View style={{ top: "37%", right: "-0%" }}>
-					<TouchableScale>
+					<TouchableScale
+						onPress={() =>
+							Alert.alert("Coming soon!", "Settings are coming soon.")
+						}
+					>
 						<CircleButton
 							Icon={"cog"}
 							IconSize={50}

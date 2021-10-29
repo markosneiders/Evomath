@@ -14,7 +14,7 @@ function Background(props) {
 		Animated.loop(
 			Animated.timing(bgsv, {
 				toValue: 1,
-				duration: 40000, //regulates backgorund scroll speed (higher = slower)
+				duration: 80000, //regulates backgorund scroll speed (higher = slower)
 				useNativeDriver: true,
 				easing: Easing.linear,
 			})
@@ -31,7 +31,7 @@ function Background(props) {
 			style={{
 				transform: [
 					{ rotate: "45deg" },
-					{ scale: 2 },
+					{ scale: 1 },
 					{ translateX: 1 },
 					{ translateY: windowHeight * -5 },
 				],
@@ -39,7 +39,7 @@ function Background(props) {
 		>
 			<Animated.Image
 				source={require("../../assets/photos/evomath-bg-one.png")}
-				blurRadius={2}
+				blurRadius={3}
 				style={{
 					position: "absolute",
 					transform: [{ translateY: bgs }],
