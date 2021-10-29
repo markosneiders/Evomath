@@ -42,7 +42,7 @@ function MenuScreen({ navigation }) {
 	});
 
 	return (
-		<View style={styles.root}>
+		<View pointerEvents={false} style={styles.root}>
 			<Background />
 			<View
 				style={{
