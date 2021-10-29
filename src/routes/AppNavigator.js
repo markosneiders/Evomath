@@ -2,9 +2,11 @@ import React from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import GameScreen from "../screens/GameScreen";
+
+import GameScreen from "../screens/GameScreen"; //Screen imports
 import MenuScreen from "../screens/MenuScreen";
 import ModeScreen from "../screens/ModeScreen";
+import AccountScreen from "../screens/AccountScreen";
 const Stack = createNativeStackNavigator();
 
 function HomeNavigator() {
@@ -42,6 +44,11 @@ function HomeNavigator() {
 				options={{
 					headerShown: false,
 				}}
+			/>
+			<Stack.Screen
+				name="AccountScreen"
+				component={AccountScreen}
+				options={{ headerShown: false }}
 			/>
 		</Stack.Navigator>
 	);

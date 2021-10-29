@@ -100,15 +100,10 @@ function MenuScreen({ navigation }) {
 					</TouchableScale>
 				</View>
 				<View style={{ top: "25%", right: "-28%" }}>
-					<TouchableScale
-						onPress={() =>
-							Alert.alert("Coming soon!", "Accounts are coming soon.")
-						}
-					>
+					<TouchableScale onPress={() => navigation.navigate("AccountScreen")}>
 						<CircleButton
 							Icon={"account"}
 							IconSize={50}
-							TextSize={30}
 							Color={"#B22D2D"}
 							Size={100}
 						/>
