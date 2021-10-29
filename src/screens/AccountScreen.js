@@ -3,6 +3,7 @@ import { View, StyleSheet, Image } from "react-native";
 import TouchableScale from "react-native-touchable-scale";
 import * as ImagePicker from "expo-image-picker";
 import CircleButton from "../components/CircleButton/CircleButton";
+import Background from "../components/Background/Background";
 function AccountScreen({ navigation }) {
 	const [pic, setpic] = useState(".//");
 	useEffect(() => {
@@ -31,37 +32,41 @@ function AccountScreen({ navigation }) {
 		}
 	};
 	return (
-		<View style={styles.container}>
-			<View style={{ top: "-32%", right: "0%" }}>
-				<TouchableScale onPress={() => pickImage()}>
-					{pic.localUri != null ? (
+		<View style={{ flex: 1 }}>
+			<Background />
+
+			<View style={styles.container}>
+				<View style={{ top: "-32%", right: "0%" }}>
+					<TouchableScale onPress={() => pickImage()}>
+						{pic.localUri != null ? (
+							<CircleButton
+								Image={pic.localUri}
+								ImageWidth={150}
+								ImageHeight={150}
+								ImageBorder={100}
+								Color={"#B22D2D"}
+								Size={170}
+							/>
+						) : (
+							<CircleButton
+								Icon={"account"}
+								IconSize={100}
+								Color={"#B22D2D"}
+								Size={170}
+							/>
+						)}
+					</TouchableScale>
+				</View>
+				<View style={{ top: "-38%", right: "35%" }}>
+					<TouchableScale onPress={() => navigation.goBack()}>
 						<CircleButton
-							Image={pic.localUri}
-							ImageWidth={150}
-							ImageHeight={150}
-							ImageBorder={100}
-							Color={"#B22D2D"}
-							Size={170}
+							Icon={"arrow-left"}
+							IconSize={40}
+							Color={"#AA6373"}
+							Size={70}
 						/>
-					) : (
-						<CircleButton
-							Icon={"account"}
-							IconSize={100}
-							Color={"#B22D2D"}
-							Size={170}
-						/>
-					)}
-				</TouchableScale>
-			</View>
-			<View style={{ top: "-38%", right: "35%" }}>
-				<TouchableScale onPress={() => navigation.goBack()}>
-					<CircleButton
-						Icon={"arrow-left"}
-						IconSize={40}
-						Color={"#AA6373"}
-						Size={70}
-					/>
-				</TouchableScale>
+					</TouchableScale>
+				</View>
 			</View>
 		</View>
 	);

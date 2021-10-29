@@ -31,21 +31,23 @@ function Background(props) {
 			style={{
 				transform: [
 					{ rotate: "45deg" },
-					{ scale: 2 },
+					{ scale: 1.7 },
 					{ translateX: 1 },
 					{ translateY: windowHeight * -5 },
 				],
 			}}
 		>
 			<Animated.Image
-				source={require("../../assets/photos/evomath-bg-one.png")}
-				blurRadius={3}
+				source={require("../../assets/photos/background.png")}
+				blurRadius={2}
 				style={{
 					position: "absolute",
 					transform: [{ translateY: bgs }],
 					height: windowHeight * 10,
 					width: windowWidth * 10,
 					resizeMode: "repeat",
+					backgroundColor: "#ebebeb",
+					opacity: 0.5,
 				}}
 			/>
 		</View>

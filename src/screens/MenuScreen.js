@@ -53,7 +53,7 @@ function MenuScreen({ navigation }) {
 				}}
 			>
 				<Animated.Image
-					source={require("../assets/photos/evomathpng.png")}
+					source={require("../assets/photos/evomathlogo.png")}
 					style={{
 						resizeMode: "contain",
 						height: "100%",
