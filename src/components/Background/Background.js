@@ -28,6 +28,7 @@ function Background(props) {
 	});
 	return (
 		<View
+			pointerEvents="none"
 			style={{
 				transform: [
 					{ rotate: "45deg" },
