@@ -131,6 +131,7 @@ function MenuScreen({ navigation }) {
 const styles = StyleSheet.create({
 	root: {
 		flex: 1,
+		overflow: "hidden",
 	},
 	optionContainer: {
 		flex: 3.5,

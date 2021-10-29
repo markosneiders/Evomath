@@ -6,7 +6,7 @@ import Background from "../components/Background/Background"; //self made compon
 import CircleButton from "../components/CircleButton/CircleButton";
 function ModeScreen({ navigation }) {
 	return (
-		<View style={{ flex: 1 }}>
+		<View style={{ flex: 1, overflow: "hidden" }}>
 			<Background />
 			<View style={styles.optionContainer}>
 				<View style={{ top: "-38%", right: "-35%" }}>

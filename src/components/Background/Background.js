@@ -31,7 +31,7 @@ function Background(props) {
 			style={{
 				transform: [
 					{ rotate: "45deg" },
-					{ scale: 1 },
+					{ scale: 2 },
 					{ translateX: 1 },
 					{ translateY: windowHeight * -5 },
 				],
