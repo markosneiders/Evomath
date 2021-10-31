@@ -38,8 +38,8 @@ function CircleButton(props) {
 		outputRange: [props.Size / -2, props.Size / -2 - move],
 	});
 	return (
-		<Animated.View style={{ top: siz }}>
-			<TouchableScale onPress={props.action}>
+		<Animated.View style={{ top: props.Size / -2 }}>
+			<TouchableScale onPress={props.Action}>
 				<View
 					style={[
 						styles.button,

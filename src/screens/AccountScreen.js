@@ -45,7 +45,7 @@ function AccountScreen({ navigation }) {
 							ImageBorder={100}
 							Color={"#B22D2D"}
 							Size={170}
-							action={() => pickImage()}
+							Action={() => pickImage()}
 							Bobble={false}
 						/>
 					) : (
@@ -56,7 +56,7 @@ function AccountScreen({ navigation }) {
 							TextSize={20}
 							Color={"#B22D2D"}
 							Size={170}
-							action={() => pickImage()}
+							Action={() => pickImage()}
 							Bobble={false}
 						/>
 					)}
@@ -67,7 +67,7 @@ function AccountScreen({ navigation }) {
 						IconSize={40}
 						Color={"#AA6373"}
 						Size={70}
-						action={() => navigation.goBack()}
+						Action={() => navigation.goBack()}
 						Bobble={false}
 					/>
 				</View>

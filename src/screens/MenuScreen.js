@@ -50,6 +50,7 @@ function MenuScreen({ navigation }) {
 
 	return (
 		<View style={styles.root}>
+			<Background />
 			<View
 				style={{
 					flex: 1,
@@ -77,7 +78,7 @@ function MenuScreen({ navigation }) {
 						TextSize={50}
 						Color={"#5240C0"}
 						Size={220}
-						action={() => navigation.navigate("GameScreen")}
+						Action={() => navigation.navigate("GameScreen")}
 					/>
 				</View>
 				<View style={{ top: "27%", right: "-20%" }}>
@@ -86,7 +87,7 @@ function MenuScreen({ navigation }) {
 						TextSize={50}
 						Color={"#FEC601"}
 						Size={200}
-						action={() => navigation.navigate("ModeScreen")}
+						Action={() => navigation.navigate("ModeScreen")}
 					/>
 				</View>
 				<View style={{ top: "15%", right: "20%" }}>
@@ -95,7 +96,7 @@ function MenuScreen({ navigation }) {
 						TextSize={45}
 						Color={"#48A646"}
 						Size={180}
-						action={() =>
+						Action={() =>
 							Alert.alert("Coming soon!", "Leaderboards are coming soon.")
 						}
 					/>
@@ -106,7 +107,7 @@ function MenuScreen({ navigation }) {
 						IconSize={50}
 						Color={"#B22D2D"}
 						Size={100}
-						action={() => navigation.navigate("AccountScreen")}
+						Action={() => navigation.navigate("AccountScreen")}
 					/>
 				</View>
 				<View style={{ top: "-13%", right: "-7%" }}>
@@ -115,7 +116,7 @@ function MenuScreen({ navigation }) {
 						IconSize={50}
 						Color={"#AA6373"}
 						Size={100}
-						action={() =>
+						Action={() =>
 							Alert.alert("Coming soon!", "Settings are coming soon.")
 						}
 					/>
