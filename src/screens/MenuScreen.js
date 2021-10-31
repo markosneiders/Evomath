@@ -1,5 +1,12 @@
 import React, { useEffect, useRef } from "react";
-import { View, StyleSheet, Alert, Animated, Easing } from "react-native";
+import {
+	View,
+	StyleSheet,
+	Alert,
+	Animated,
+	Easing,
+	Button,
+} from "react-native";
 import TouchableScale from "react-native-touchable-scale";
 
 import CircleButton from "../components/CircleButton/CircleButton"; //self made component imports
@@ -42,8 +49,7 @@ function MenuScreen({ navigation }) {
 	});
 
 	return (
-		<View pointerEvents="box-none" style={styles.root}>
-			<Background />
+		<View style={styles.root}>
 			<View
 				style={{
 					flex: 1,
@@ -65,63 +71,54 @@ function MenuScreen({ navigation }) {
 				/>
 			</View>
 			<View style={styles.optionContainer}>
-				<View style={{ top: "-30%", right: "20%" }}>
-					<TouchableScale onPress={() => navigation.navigate("GameScreen")}>
-						<CircleButton
-							Text={"Quick Play"}
-							TextSize={50}
-							Color={"#5240C0"}
-							Size={220}
-						/>
-					</TouchableScale>
+				<View style={{ top: "35%", right: "18%" }}>
+					<CircleButton
+						Text={"Quick Play"}
+						TextSize={50}
+						Color={"#5240C0"}
+						Size={220}
+						action={() => navigation.navigate("GameScreen")}
+					/>
 				</View>
-				<View style={{ top: "-5%", right: "-20%" }}>
-					<TouchableScale onPress={() => navigation.navigate("ModeScreen")}>
-						<CircleButton
-							Text={"Modes"}
-							TextSize={50}
-							Color={"#FEC601"}
-							Size={200}
-						/>
-					</TouchableScale>
+				<View style={{ top: "27%", right: "-20%" }}>
+					<CircleButton
+						Text={"Modes"}
+						TextSize={50}
+						Color={"#FEC601"}
+						Size={200}
+						action={() => navigation.navigate("ModeScreen")}
+					/>
 				</View>
 				<View style={{ top: "15%", right: "20%" }}>
-					<TouchableScale
-						onPress={() =>
+					<CircleButton
+						Text={"Leaderboards"}
+						TextSize={45}
+						Color={"#48A646"}
+						Size={180}
+						action={() =>
 							Alert.alert("Coming soon!", "Leaderboards are coming soon.")
 						}
-					>
-						<CircleButton
-							Text={"Leaderboards"}
-							TextSize={45}
-							Color={"#48A646"}
-							Size={180}
-						/>
-					</TouchableScale>
+					/>
 				</View>
-				<View style={{ top: "25%", right: "-28%" }}>
-					<TouchableScale onPress={() => navigation.navigate("AccountScreen")}>
-						<CircleButton
-							Icon={"account"}
-							IconSize={50}
-							Color={"#B22D2D"}
-							Size={100}
-						/>
-					</TouchableScale>
+				<View style={{ top: "-10%", right: "-28%" }}>
+					<CircleButton
+						Icon={"account"}
+						IconSize={50}
+						Color={"#B22D2D"}
+						Size={100}
+						action={() => navigation.navigate("AccountScreen")}
+					/>
 				</View>
-				<View style={{ top: "37%", right: "-0%" }}>
-					<TouchableScale
-						onPress={() =>
+				<View style={{ top: "-13%", right: "-7%" }}>
+					<CircleButton
+						Icon={"cog"}
+						IconSize={50}
+						Color={"#AA6373"}
+						Size={100}
+						action={() =>
 							Alert.alert("Coming soon!", "Settings are coming soon.")
 						}
-					>
-						<CircleButton
-							Icon={"cog"}
-							IconSize={50}
-							Color={"#AA6373"}
-							Size={100}
-						/>
-					</TouchableScale>
+					/>
 				</View>
 			</View>
 		</View>
