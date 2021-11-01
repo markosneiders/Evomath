@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { View, Animated, Easing } from "react-native";
+import { View, Animated, Easing, ImageBackground } from "react-native";
 import { Dimensions } from "react-native";
 function Background(props) {
 	const windowWidth = Dimensions.get("window").width;
@@ -41,12 +41,12 @@ function Background(props) {
 			<Animated.Image
 				source={require("../../assets/photos/background.png")}
 				blurRadius={2}
+				resizeMode="repeat"
 				style={{
 					position: "absolute",
 					transform: [{ translateY: bgs }],
 					height: windowHeight * 10,
 					width: windowWidth * 10,
-					resizeMode: "repeat",
 					backgroundColor: "#ebebeb",
 					opacity: 0.5,
 				}}

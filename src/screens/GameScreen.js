@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Animated, Easing } from "react-native";
 import AnwserOption from "../components/AnswerOption/AnwserOption";
 import TouchableScale from "react-native-touchable-scale";
 
-function GameScreen() {
+function GameScreen({ navigation }) {
 	const pgv = useRef(new Animated.Value(1)).current;
 	const Progress = () => {
 		Animated.timing(pgv, {
@@ -104,7 +104,10 @@ function GameScreen() {
 				</TouchableScale>
 			</View>
 			<View style={[styles.optionsContainer, { marginBottom: 20 }]}>
-				<TouchableScale style={{ flex: 1 }}>
+				<TouchableScale
+					style={{ flex: 1 }}
+					onPress={() => navigation.navigate("GameOverScreen")}
+				>
 					<AnwserOption text="3" color="#FEC601" />
 				</TouchableScale>
 				<TouchableScale style={{ flex: 1 }}>

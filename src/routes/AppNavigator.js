@@ -7,6 +7,7 @@ import GameScreen from "../screens/GameScreen"; //Screen imports
 import MenuScreen from "../screens/MenuScreen";
 import ModeScreen from "../screens/ModeScreen";
 import AccountScreen from "../screens/AccountScreen";
+import GameOverScreen from "../screens/GameOverScreen";
 const Stack = createNativeStackNavigator();
 
 function HomeNavigator() {
@@ -41,6 +42,13 @@ function HomeNavigator() {
 			<Stack.Screen
 				name="GameScreen"
 				component={GameScreen}
+				options={{
+					headerShown: false,
+				}}
+			/>
+			<Stack.Screen
+				name="GameOverScreen"
+				component={GameOverScreen}
 				options={{
 					headerShown: false,
 				}}
