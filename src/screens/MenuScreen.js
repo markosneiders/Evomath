@@ -1,13 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import {
-	View,
-	StyleSheet,
-	Alert,
-	Animated,
-	Easing,
-	Button,
-} from "react-native";
-import TouchableScale from "react-native-touchable-scale";
+import { View, StyleSheet, Alert, Animated, Easing } from "react-native";
 
 import CircleButton from "../components/CircleButton/CircleButton"; //self made component imports
 import Background from "../components/Background/Background";
@@ -108,6 +100,7 @@ function MenuScreen({ navigation }) {
 						Color={"#B22D2D"}
 						Size={100}
 						Action={() => navigation.navigate("AccountScreen")}
+						Bobble={false}
 					/>
 				</View>
 				<View style={{ top: "-13%", right: "-7%" }}>
@@ -119,6 +112,7 @@ function MenuScreen({ navigation }) {
 						Action={() =>
 							Alert.alert("Coming soon!", "Settings are coming soon.")
 						}
+						Bobble={false}
 					/>
 				</View>
 			</View>

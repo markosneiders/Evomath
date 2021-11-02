@@ -51,6 +51,7 @@ function GameOverScreen({ navigation }) {
 						Color={"#FEC601"}
 						Size={70}
 						Action={() => navigation.navigate("ModeScreen")}
+						Bobble={false}
 					/>
 				</View>
 				<View style={{ top: "-26.5%", right: "-13%" }}>
@@ -60,6 +61,7 @@ function GameOverScreen({ navigation }) {
 						Color={"#AA6373"}
 						Size={70}
 						Action={() => navigation.navigate("GameScreen")}
+						Bobble={false}
 					/>
 				</View>
 				<View style={{ top: "-27%", right: "-25.5%" }}>
@@ -69,6 +71,7 @@ function GameOverScreen({ navigation }) {
 						Color={"#B22D2D"}
 						Size={70}
 						Action={() => navigation.navigate("MenuScreen")}
+						Bobble={false}
 					/>
 				</View>
 			</View>

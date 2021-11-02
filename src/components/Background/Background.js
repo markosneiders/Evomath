@@ -48,7 +48,7 @@ function Background(props) {
 					height: windowHeight * 10,
 					width: windowWidth * 10,
 					backgroundColor: "#ebebeb",
-					opacity: 0.5,
+					opacity: 0.3,
 				}}
 			/>
 		</View>
