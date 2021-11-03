@@ -5,36 +5,55 @@ import TouchableScale from "react-native-touchable-scale";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 function GameScreen({ navigation }) {
 	useEffect(() => {
-		ProgressS();
-		setTimeout(() => setCount(2), 1000);
-		setTimeout(() => setCount(1), 2000);
-		setTimeout(() => setCount(0), 3000);
+		startup();
 	}, []);
 	const pgv = useRef(new Animated.Value(0)).current;
-	const [count, setCount] = useState(3);
-	const Progress = () => {
+	//const pgv = new Animated.Value(0);
+
+	const [question, setQuestion] = useState(3); //Equation and respective answers
+	const [answer1, setAnswer1] = useState(0);
+	const [answer2, setAnswer2] = useState(0);
+	const [answer3, setAnswer3] = useState(0);
+	const [answer4, setAnswer4] = useState(0);
+	const [check, setCheck] = useState(1);
+
+	const startQuestion = () => {
 		Animated.timing(pgv, {
 			toValue: 0,
 			duration: 3000, //time for bar
 			useNativeDriver: false,
 			easing: Easing.linear,
-		}).start(() => gameEnd());
+		}).start((o) => {
+			if (o.finished) {
+				gameEnd();
+			}
+		});
 	};
-	const ProgressR = () => {
+	const nextQuestion = () => {
 		Animated.timing(pgv, {
 			toValue: 1,
 			duration: 300, //time for bar reset
 			useNativeDriver: false,
-			easing: Easing.linear,
 		}).start();
+		setTimeout(() => setQuestion(Math.floor(Math.random() * 20) + 10), 300);
+		setTimeout(() => setAnswer1(Math.floor(Math.random() * 20) + 10), 300);
+		setTimeout(() => setAnswer2(Math.floor(Math.random() * 20) + 10), 300);
+		setTimeout(() => setAnswer3(Math.floor(Math.random() * 20) + 10), 300);
+		setTimeout(() => setAnswer4(Math.floor(Math.random() * 20) + 10), 300);
 	};
-	const ProgressS = () => {
+	const gameEnd = () => {
+		navigation.navigate("GameOverScreen");
+	};
+	const startup = () => {
+		setTimeout(() => setQuestion(2), 1000);
+		setTimeout(() => setQuestion(1), 2000);
+		setTimeout(() => setQuestion(0), 3000);
 		Animated.timing(pgv, {
 			toValue: 1,
 			duration: 4000, //time for bar intializing on screen open
 			useNativeDriver: false,
 			easing: Easing.linear,
-		}).start();
+		}).start(() => nextQuestion());
 	};
 	const pgw = pgv.interpolate({
 		inputRange: [0, 1],
@@ -54,9 +73,7 @@ function GameScreen({ navigation }) {
 			"#32DD2E",
 		],
 	});
-	const gameEnd = () => {
-		navigation.navigate("GameOverScreen");
-	};
+
 	return (
 		<View style={styles.root}>
 			<View style={styles.questionContainer}>
@@ -85,7 +102,7 @@ function GameScreen({ navigation }) {
 						color: "white",
 					}}
 				>
-					{count}
+					{question}
 				</Animated.Text>
 			</View>
 			<View style={styles.scoresContainer}>
@@ -170,11 +187,11 @@ function GameScreen({ navigation }) {
 			</View>
 			<View style={{ flex: 267 * 2, marginBottom: 20 }}>
 				<View style={styles.optionsContainer}>
-					<TouchableScale style={{ flex: 1 }} onPress={() => Progress()}>
-						<AnwserOption text="1" color="#B22D2D" icon="square" />
+					<TouchableScale style={{ flex: 1 }} onPress={() => startQuestion()}>
+						<AnwserOption text={answer1} color="#B22D2D" icon="square" />
 					</TouchableScale>
-					<TouchableScale style={{ flex: 1 }} onPress={() => ProgressR()}>
-						<AnwserOption text="2" color="#5240C0" icon="triangle" />
+					<TouchableScale style={{ flex: 1 }} onPress={() => nextQuestion()}>
+						<AnwserOption text={answer2} color="#5240C0" icon="triangle" />
 					</TouchableScale>
 				</View>
 				<View style={[styles.optionsContainer]}>
@@ -182,10 +199,10 @@ function GameScreen({ navigation }) {
 						style={{ flex: 1 }}
 						onPress={() => navigation.navigate("GameOverScreen")}
 					>
-						<AnwserOption text="3" color="#FEC601" icon="star" />
+						<AnwserOption text={answer3} color="#FEC601" icon="star" />
 					</TouchableScale>
 					<TouchableScale style={{ flex: 1 }}>
-						<AnwserOption text="4" color="#48A646" icon="circle" />
+						<AnwserOption text={answer4} color="#48A646" icon="circle" />
 					</TouchableScale>
 				</View>
 			</View>
