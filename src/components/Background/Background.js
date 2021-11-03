@@ -41,7 +41,7 @@ function Background(props) {
 			<Animated.Image
 				source={require("../../assets/photos/background.png")}
 				blurRadius={2}
-				resizeMode="repeat"
+				//resizeMode="repeat"
 				style={{
 					position: "absolute",
 					transform: [{ translateY: bgs }],

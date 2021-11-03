@@ -5,22 +5,30 @@ import TouchableScale from "react-native-touchable-scale";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 function GameScreen({ navigation }) {
 	useEffect(() => {
-		startup();
-	}, []);
+		const unsubscribe = navigation.addListener("focus", () => {
+			//when screen is focused
+			transReturn();
+		});
+
+		return unsubscribe;
+	}, [navigation]);
 	const pgv = useRef(new Animated.Value(0)).current;
+	const gopacity = useRef(new Animated.Value(0)).current;
 	//const pgv = new Animated.Value(0);
 
 	const [question, setQuestion] = useState(3); //Equation and respective answers
-	const [answer1, setAnswer1] = useState(0);
-	const [answer2, setAnswer2] = useState(0);
-	const [answer3, setAnswer3] = useState(0);
-	const [answer4, setAnswer4] = useState(0);
-	const [check, setCheck] = useState(1);
+	const [answer1, setAnswer1] = useState();
+	const [answer2, setAnswer2] = useState();
+	const [answer3, setAnswer3] = useState();
+	const [answer4, setAnswer4] = useState();
+
+	const [resetTime, setResetTime] = useState(500);
+	const [questionTime, setQuestionTime] = useState(5000);
 
 	const startQuestion = () => {
 		Animated.timing(pgv, {
 			toValue: 0,
-			duration: 3000, //time for bar
+			duration: questionTime, //time for bar
 			useNativeDriver: false,
 			easing: Easing.linear,
 		}).start((o) => {
@@ -32,17 +40,36 @@ function GameScreen({ navigation }) {
 	const nextQuestion = () => {
 		Animated.timing(pgv, {
 			toValue: 1,
-			duration: 300, //time for bar reset
+			duration: resetTime, //time for bar reset
 			useNativeDriver: false,
-		}).start();
-		setTimeout(() => setQuestion(Math.floor(Math.random() * 20) + 10), 300);
-		setTimeout(() => setAnswer1(Math.floor(Math.random() * 20) + 10), 300);
-		setTimeout(() => setAnswer2(Math.floor(Math.random() * 20) + 10), 300);
-		setTimeout(() => setAnswer3(Math.floor(Math.random() * 20) + 10), 300);
-		setTimeout(() => setAnswer4(Math.floor(Math.random() * 20) + 10), 300);
+		}).start(() => startQuestion());
+		setTimeout(
+			() => setQuestion(Math.floor(Math.random() * 20) + 10),
+			resetTime
+		);
+		setTimeout(
+			() => setAnswer1(Math.floor(Math.random() * 20) + 10),
+			resetTime
+		);
+		setTimeout(
+			() => setAnswer2(Math.floor(Math.random() * 20) + 10),
+			resetTime
+		);
+		setTimeout(
+			() => setAnswer3(Math.floor(Math.random() * 20) + 10),
+			resetTime
+		);
+		setTimeout(
+			() => setAnswer4(Math.floor(Math.random() * 20) + 10),
+			resetTime
+		);
 	};
 	const gameEnd = () => {
-		navigation.navigate("GameOverScreen");
+		Animated.timing(gopacity, {
+			toValue: 0,
+			duration: 1000, //time for bar intializing on screen open
+			useNativeDriver: false,
+		}).start(() => navigation.navigate("GameOverScreen"));
 	};
 	const startup = () => {
 		setTimeout(() => setQuestion(2), 1000);
@@ -73,9 +100,21 @@ function GameScreen({ navigation }) {
 			"#32DD2E",
 		],
 	});
-
+	const transReturn = (easing) => {
+		//when returning to this screen
+		Animated.timing(gopacity, {
+			toValue: 1,
+			duration: 500,
+			useNativeDriver: false,
+			easing,
+		}).start(() => startup());
+	};
+	const globalOpacity = gopacity.interpolate({
+		inputRange: [0, 1],
+		outputRange: [0, 1],
+	});
 	return (
-		<View style={styles.root}>
+		<Animated.View style={[styles.root, { opacity: globalOpacity }]}>
 			<View style={styles.questionContainer}>
 				<Animated.View
 					style={{
@@ -195,10 +234,7 @@ function GameScreen({ navigation }) {
 					</TouchableScale>
 				</View>
 				<View style={[styles.optionsContainer]}>
-					<TouchableScale
-						style={{ flex: 1 }}
-						onPress={() => navigation.navigate("GameOverScreen")}
-					>
+					<TouchableScale style={{ flex: 1 }} onPress={() => gameEnd()}>
 						<AnwserOption text={answer3} color="#FEC601" icon="star" />
 					</TouchableScale>
 					<TouchableScale style={{ flex: 1 }}>
@@ -206,7 +242,7 @@ function GameScreen({ navigation }) {
 					</TouchableScale>
 				</View>
 			</View>
-		</View>
+		</Animated.View>
 	);
 }
 

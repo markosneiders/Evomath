@@ -10,9 +10,16 @@ function MenuScreen({ navigation }) {
 	const windowWidth = Dimensions.get("window").width;
 	const windowHeight = Dimensions.get("window").height;
 	const rotv = useRef(new Animated.Value(0)).current;
+	const vmove = useRef(new Animated.Value(0)).current;
 	useEffect(() => {
 		rotate(Easing.inOut(Easing.ease));
-	}, []);
+		const unsubscribe = navigation.addListener("focus", () => {
+			//when screen is focused
+			transReturn(Easing.out(Easing.ease));
+		});
+
+		return unsubscribe;
+	}, [navigation]);
 
 	const rotate = (easing) => {
 		//logo rotation aniamtion loop
@@ -40,9 +47,42 @@ function MenuScreen({ navigation }) {
 		outputRange: ["-10deg", "10deg"],
 	});
 
+	// transiton animations
+	const transReturn = (easing) => {
+		//when returning to this screen
+		Animated.timing(vmove, {
+			toValue: 0,
+			duration: 1000,
+			useNativeDriver: false,
+			easing,
+		}).start();
+	};
+	const transPlay = (easing) => {
+		// when going to play screen
+		Animated.timing(vmove, {
+			toValue: 1,
+			duration: 1000,
+			useNativeDriver: false,
+			easing,
+		}).start(() => navigation.navigate("GameScreen"));
+	};
+	const transMode = (easing) => {
+		// when going to mode screen
+		Animated.timing(vmove, {
+			toValue: -1,
+			duration: 1000,
+			useNativeDriver: false,
+			easing,
+		}).start(() => navigation.navigate("ModeScreen"));
+	};
+
+	const verticalMove = vmove.interpolate({
+		inputRange: [-1, 0, 1],
+		outputRange: ["-100%", "0%", "100%"],
+	});
+
 	return (
-		<View style={styles.root}>
-			<Background />
+		<Animated.View style={[styles.root, { top: verticalMove }]}>
 			<View
 				style={{
 					flex: 1,
@@ -70,7 +110,7 @@ function MenuScreen({ navigation }) {
 						TextSize={50}
 						Color={"#5240C0"}
 						Size={220}
-						Action={() => navigation.navigate("GameScreen")}
+						Action={() => transPlay(Easing.in(Easing.ease))}
 					/>
 				</View>
 				<View style={{ top: "27%", right: "-20%" }}>
@@ -79,7 +119,7 @@ function MenuScreen({ navigation }) {
 						TextSize={50}
 						Color={"#FEC601"}
 						Size={200}
-						Action={() => navigation.navigate("ModeScreen")}
+						Action={() => transMode(Easing.in(Easing.ease))}
 					/>
 				</View>
 				<View style={{ top: "15%", right: "20%" }}>
@@ -116,7 +156,7 @@ function MenuScreen({ navigation }) {
 					/>
 				</View>
 			</View>
-		</View>
+		</Animated.View>
 	);
 }
 

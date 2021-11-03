@@ -11,24 +11,16 @@ import GameOverScreen from "../screens/GameOverScreen";
 const Stack = createNativeStackNavigator();
 
 function HomeNavigator() {
-	const config = {
-		animation: "spring",
-		config: {
-			stiffness: 1000,
-			damping: 500,
-			mass: 3,
-			overshootClamping: true,
-			restDisplacementThreshold: 0.01,
-			restSpeedThreshold: 0.01,
-		},
-	};
-
 	return (
 		<Stack.Navigator>
 			<Stack.Screen
 				name="HomeScreen"
 				component={MenuScreen}
-				options={{ headerShown: false }}
+				options={{
+					headerShown: false,
+					animation: "fade",
+					gestureEnabled: false,
+				}}
 			/>
 			<Stack.Screen
 				name="ModeScreen"
@@ -36,7 +28,7 @@ function HomeNavigator() {
 				options={{
 					headerShown: false,
 					animation: "fade",
-					gestureEnabled: "true",
+					gestureEnabled: false,
 				}}
 			/>
 			<Stack.Screen
@@ -44,6 +36,8 @@ function HomeNavigator() {
 				component={GameScreen}
 				options={{
 					headerShown: false,
+					animation: "none",
+					gestureEnabled: false,
 				}}
 			/>
 			<Stack.Screen
@@ -51,12 +45,14 @@ function HomeNavigator() {
 				component={GameOverScreen}
 				options={{
 					headerShown: false,
+					animation: "none",
+					gestureEnabled: false,
 				}}
 			/>
 			<Stack.Screen
 				name="AccountScreen"
 				component={AccountScreen}
-				options={{ headerShown: false }}
+				options={{ headerShown: false, gestureEnabled: false }}
 			/>
 		</Stack.Navigator>
 	);
