@@ -4,11 +4,7 @@ import { View, StyleSheet, Alert, Animated, Easing } from "react-native";
 import CircleButton from "../components/CircleButton/CircleButton"; //self made component imports
 import Background from "../components/Background/Background";
 
-import { Dimensions } from "react-native";
-
 function MenuScreen({ navigation }) {
-	const windowWidth = Dimensions.get("window").width;
-	const windowHeight = Dimensions.get("window").height;
 	const rotv = useRef(new Animated.Value(0)).current;
 	const vmove = useRef(new Animated.Value(0)).current;
 	useEffect(() => {

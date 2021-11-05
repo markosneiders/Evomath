@@ -2,8 +2,8 @@ import React from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Animated } from "react-native";
-
+import { Dimensions } from "react-native";
+import transitions from "./Transition";
 import GameScreen from "../screens/GameScreen"; //Screen imports
 import MenuScreen from "../screens/MenuScreen";
 import ModeScreen from "../screens/ModeScreen";
@@ -15,44 +15,19 @@ import GameOverScreen from "../screens/GameOverScreen";
 const Stack = createStackNavigator();
 
 function HomeNavigator() {
-	const forSlide = ({ current, next, inverted, layouts: { screen } }) => {
-		const progress = Animated.add(
-			current.progress.interpolate({
-				inputRange: [0, 1],
-				outputRange: [0, 1],
-				extrapolate: "clamp",
-			}),
-			next
-				? next.progress.interpolate({
-						inputRange: [0, 1],
-						outputRange: [0, 1],
-						extrapolate: "clamp",
-				  })
-				: 0
-		);
-
-		return {
-			cardStyle: {
-				transform: [
-					{
-						translateY: Animated.multiply(
-							progress.interpolate({
-								inputRange: [0, 1, 2],
-								outputRange: [
-									screen.height, // Focused, but offscreen in the beginning
-									0, // Fully focused
-									-screen.height, // Fully unfocused
-								],
-								extrapolate: "clamp",
-							}),
-							inverted
-						),
-					},
-				],
-			},
-		};
+	const windowHeight = Dimensions.get("window").height;
+	const windowWidth = Dimensions.get("window").width;
+	const config = {
+		animation: "spring",
+		config: {
+			stiffness: 2000,
+			damping: 500,
+			mass: 20,
+			overshootClamping: false,
+			restDisplacementThreshold: 100,
+			restSpeedThreshold: 10,
+		},
 	};
-
 	return (
 		<Stack.Navigator>
 			{/*<Stack.Screen
@@ -70,8 +45,11 @@ function HomeNavigator() {
 				component={MenuScreen}
 				options={{
 					headerShown: false,
-					gestureEnabled: "false",
-					cardStyleInterpolator: forSlide,
+					gestureEnabled: false,
+					transitionSpec: {
+						open: config,
+						close: config,
+					},
 				}}
 			/>
 			<Stack.Screen
@@ -79,8 +57,14 @@ function HomeNavigator() {
 				component={ModeScreen}
 				options={{
 					headerShown: false,
-					gestureEnabled: "false",
-					cardStyleInterpolator: forSlide,
+					gestureEnabled: true,
+					gestureDirection: "vertical",
+					gestureResponseDistance: windowHeight,
+					cardStyleInterpolator: transitions.down,
+					transitionSpec: {
+						open: config,
+						close: config,
+					},
 				}}
 			/>
 			<Stack.Screen
@@ -88,8 +72,12 @@ function HomeNavigator() {
 				component={GameScreen}
 				options={{
 					headerShown: false,
-					gestureEnabled: "false",
-					cardStyleInterpolator: forSlide,
+					gestureEnabled: false,
+					cardStyleInterpolator: transitions.up,
+					transitionSpec: {
+						open: config,
+						close: config,
+					},
 				}}
 			/>
 			<Stack.Screen
@@ -97,8 +85,12 @@ function HomeNavigator() {
 				component={GameOverScreen}
 				options={{
 					headerShown: false,
-					gestureEnabled: "false",
-					cardStyleInterpolator: forSlide,
+					gestureEnabled: false,
+					cardStyleInterpolator: transitions.fade,
+					transitionSpec: {
+						open: config,
+						close: config,
+					},
 				}}
 			/>
 			<Stack.Screen
@@ -106,8 +98,13 @@ function HomeNavigator() {
 				component={AccountScreen}
 				options={{
 					headerShown: false,
-					gestureEnabled: "false",
-					cardStyleInterpolator: forSlide,
+					gestureEnabled: true,
+					gestureResponseDistance: windowWidth,
+					cardStyleInterpolator: transitions.right,
+					transitionSpec: {
+						open: config,
+						close: config,
+					},
 				}}
 			/>
 		</Stack.Navigator>

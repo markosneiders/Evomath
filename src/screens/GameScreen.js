@@ -6,16 +6,16 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 function GameScreen({ navigation }) {
 	useEffect(() => {
 		const unsubscribe = navigation.addListener("focus", () => {
-			//when screen is focused
-			startup();
+			//triggers when screen gets focused
+			onFocus();
 		});
 
 		return unsubscribe;
 	}, [navigation]);
 	const pgv = useRef(new Animated.Value(0)).current;
-	//const pgv = new Animated.Value(0);
+	const op = useRef(new Animated.Value(0)).current;
 
-	const [question, setQuestion] = useState(3); //Equation and respective answers
+	const [question, setQuestion] = useState(3); //Question and respective answers
 	const [answer1, setAnswer1] = useState();
 	const [answer2, setAnswer2] = useState();
 	const [answer3, setAnswer3] = useState();
@@ -25,6 +25,7 @@ function GameScreen({ navigation }) {
 	const [questionTime, setQuestionTime] = useState(5000);
 
 	const startQuestion = () => {
+		//starts the timer and if it finishes ends the game
 		Animated.timing(pgv, {
 			toValue: 0,
 			duration: questionTime, //time for bar
@@ -37,45 +38,66 @@ function GameScreen({ navigation }) {
 		});
 	};
 	const nextQuestion = () => {
+		// triggers when the correct answer is selected
 		Animated.timing(pgv, {
 			toValue: 1,
 			duration: resetTime, //time for bar reset
 			useNativeDriver: false,
-		}).start(() => startQuestion());
-		setTimeout(
-			() => setQuestion(Math.floor(Math.random() * 20) + 10),
-			resetTime
-		);
-		setTimeout(
-			() => setAnswer1(Math.floor(Math.random() * 20) + 10),
-			resetTime
-		);
-		setTimeout(
-			() => setAnswer2(Math.floor(Math.random() * 20) + 10),
-			resetTime
-		);
-		setTimeout(
-			() => setAnswer3(Math.floor(Math.random() * 20) + 10),
-			resetTime
-		);
-		setTimeout(
-			() => setAnswer4(Math.floor(Math.random() * 20) + 10),
-			resetTime
-		);
+		}).start(() => [startQuestion(), textUpdate()]);
+	};
+	const textUpdate = () => {
+		// Changes question and answers on new question
+		setQuestion(Math.floor(Math.random() * 20) + 10);
+
+		setAnswer1(Math.floor(Math.random() * 20) + 10);
+
+		setAnswer2(Math.floor(Math.random() * 20) + 10);
+
+		setAnswer3(Math.floor(Math.random() * 20) + 10);
+
+		setAnswer4(Math.floor(Math.random() * 20) + 10);
 	};
 	const gameEnd = () => {
-		navigation.navigate("GameOverScreen");
+		//gets run when the game ends
+		Animated.timing(op, {
+			//fade out
+			toValue: 0,
+			duration: 1000,
+			useNativeDriver: false,
+			easing: Easing.linear,
+		}).start(() => navigation.navigate("GameOverScreen"));
 	};
 	const startup = () => {
+		//triggered once when game gets started
 		setTimeout(() => setQuestion(2), 1000);
 		setTimeout(() => setQuestion(1), 2000);
 		setTimeout(() => setQuestion(0), 3000);
 		Animated.timing(pgv, {
 			toValue: 1,
-			duration: 4000, //time for bar intializing on screen open
+			duration: 4000,
 			useNativeDriver: false,
 			easing: Easing.linear,
 		}).start(() => nextQuestion());
+	};
+	const onFocus = () => {
+		// triggers when screen comes into focus
+		setQuestion(3);
+		setAnswer1();
+		setAnswer2();
+		setAnswer3();
+		setAnswer4();
+		setTimeout(
+			//delay
+			() =>
+				Animated.timing(op, {
+					//animation for fade in
+					toValue: 1,
+					duration: 1000, //time for bar intializing on screen open
+					useNativeDriver: false,
+					easing: Easing.linear,
+				}).start(() => startup()),
+			900 //delay time
+		);
 	};
 	const pgw = pgv.interpolate({
 		inputRange: [0, 1],
@@ -96,7 +118,7 @@ function GameScreen({ navigation }) {
 		],
 	});
 	return (
-		<Animated.View style={styles.root}>
+		<Animated.View style={[styles.root, { opacity: op }]}>
 			<View style={styles.questionContainer}>
 				<Animated.View
 					style={{
