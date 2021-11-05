@@ -1,33 +1,92 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { View, Text, StyleSheet, Animated, Easing } from "react-native";
 import AnwserOption from "../components/AnswerOption/AnwserOption";
 import TouchableScale from "react-native-touchable-scale";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+function GameScreen({ navigation }) {
+	useEffect(() => {
+		const unsubscribe = navigation.addListener("focus", () => {
+			//when screen is focused
+			transReturn();
+		});
 
-function GameScreen() {
-	const pgv = useRef(new Animated.Value(1)).current;
-	const Progress = () => {
+		return unsubscribe;
+	}, [navigation]);
+	const pgv = useRef(new Animated.Value(0)).current;
+	const gopacity = useRef(new Animated.Value(0)).current;
+	//const pgv = new Animated.Value(0);
+
+	const [question, setQuestion] = useState(3); //Equation and respective answers
+	const [answer1, setAnswer1] = useState();
+	const [answer2, setAnswer2] = useState();
+	const [answer3, setAnswer3] = useState();
+	const [answer4, setAnswer4] = useState();
+
+	const [resetTime, setResetTime] = useState(500);
+	const [questionTime, setQuestionTime] = useState(5000);
+
+	const startQuestion = () => {
 		Animated.timing(pgv, {
 			toValue: 0,
-			duration: 3000, //time for bar
+			duration: questionTime, //time for bar
 			useNativeDriver: false,
 			easing: Easing.linear,
-		}).start();
+		}).start((o) => {
+			if (o.finished) {
+				gameEnd();
+			}
+		});
 	};
-	const ProgressR = () => {
+	const nextQuestion = () => {
 		Animated.timing(pgv, {
 			toValue: 1,
-			duration: 300, //time for bar reset
+			duration: resetTime, //time for bar reset
+			useNativeDriver: false,
+		}).start(() => startQuestion());
+		setTimeout(
+			() => setQuestion(Math.floor(Math.random() * 20) + 10),
+			resetTime
+		);
+		setTimeout(
+			() => setAnswer1(Math.floor(Math.random() * 20) + 10),
+			resetTime
+		);
+		setTimeout(
+			() => setAnswer2(Math.floor(Math.random() * 20) + 10),
+			resetTime
+		);
+		setTimeout(
+			() => setAnswer3(Math.floor(Math.random() * 20) + 10),
+			resetTime
+		);
+		setTimeout(
+			() => setAnswer4(Math.floor(Math.random() * 20) + 10),
+			resetTime
+		);
+	};
+	const gameEnd = () => {
+		Animated.timing(gopacity, {
+			toValue: 0,
+			duration: 1000, //time for bar intializing on screen open
+			useNativeDriver: false,
+		}).start(() => navigation.navigate("GameOverScreen"));
+	};
+	const startup = () => {
+		setTimeout(() => setQuestion(2), 1000);
+		setTimeout(() => setQuestion(1), 2000);
+		setTimeout(() => setQuestion(0), 3000);
+		Animated.timing(pgv, {
+			toValue: 1,
+			duration: 4000, //time for bar intializing on screen open
 			useNativeDriver: false,
 			easing: Easing.linear,
-		}).start();
+		}).start(() => nextQuestion());
 	};
 	const pgw = pgv.interpolate({
-		//logo rotation value interpolation
 		inputRange: [0, 1],
 		outputRange: ["0%", "100%"],
 	});
 	const pgc = pgv.interpolate({
-		//logo rotation value interpolation
 		inputRange: [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.5, 1],
 		outputRange: [
 			"red",
@@ -41,8 +100,21 @@ function GameScreen() {
 			"#32DD2E",
 		],
 	});
+	const transReturn = (easing) => {
+		//when returning to this screen
+		Animated.timing(gopacity, {
+			toValue: 1,
+			duration: 500,
+			useNativeDriver: false,
+			easing,
+		}).start(() => startup());
+	};
+	const globalOpacity = gopacity.interpolate({
+		inputRange: [0, 1],
+		outputRange: [0, 1],
+	});
 	return (
-		<View style={styles.root}>
+		<Animated.View style={[styles.root, { opacity: globalOpacity }]}>
 			<View style={styles.questionContainer}>
 				<Animated.View
 					style={{
@@ -54,64 +126,123 @@ function GameScreen() {
 						alignSelf: "flex-start",
 					}}
 				/>
-				<Text
+				<Animated.Text
 					style={{
-						fontSize: 50,
+						fontSize: 70,
 						fontWeight: "700",
+						shadowColor: "#000",
+						shadowOffset: {
+							width: 0,
+							height: 5,
+						},
+						shadowOpacity: 0.25,
+						shadowRadius: 3.84,
+						opacity: 1,
+						color: "white",
 					}}
 				>
-					2 + 2
-				</Text>
+					{question}
+				</Animated.Text>
 			</View>
 			<View style={styles.scoresContainer}>
 				<View style={styles.score}>
-					<Text
+					<View
 						style={{
-							fontSize: 20,
-							fontWeight: "700",
+							shadowColor: "#000",
+							shadowOffset: {
+								width: 0,
+								height: 2,
+							},
+							shadowOpacity: 0.25,
+							shadowRadius: 3.84,
+							marginRight: 10,
+							backgroundColor: "#B22D2D",
+							borderRadius: 100,
+							padding: 5,
 						}}
 					>
-						10
-					</Text>
+						<MaterialCommunityIcons name="account" size={40} color="white" />
+					</View>
+					<View
+						style={{
+							shadowColor: "#000",
+							shadowOffset: {
+								width: 0,
+								height: 2,
+							},
+							shadowOpacity: 0.15,
+							shadowRadius: 3.84,
+						}}
+					>
+						<Text
+							style={{
+								fontSize: 30,
+								fontWeight: "700",
+							}}
+						>
+							4726
+						</Text>
+					</View>
 				</View>
 				<View style={styles.score}>
-					<Text
+					<View
 						style={{
-							fontSize: 20,
-							fontWeight: "700",
+							shadowColor: "#000",
+							shadowOffset: {
+								width: 0,
+								height: 2,
+							},
+							shadowOpacity: 0.25,
+							shadowRadius: 3.84,
+							marginRight: 10,
+							backgroundColor: "#B22D2D",
+							borderRadius: 100,
+							padding: 5,
 						}}
 					>
-						6
-					</Text>
-				</View>
-				<View style={styles.score}>
-					<Text
+						<MaterialCommunityIcons name="trophy" size={40} color="white" />
+					</View>
+					<View
 						style={{
-							fontSize: 20,
-							fontWeight: "700",
+							shadowColor: "#000",
+							shadowOffset: {
+								width: 0,
+								height: 2,
+							},
+							shadowOpacity: 0.15,
+							shadowRadius: 3.84,
 						}}
 					>
-						4
-					</Text>
+						<Text
+							style={{
+								fontSize: 30,
+								fontWeight: "700",
+							}}
+						>
+							5484
+						</Text>
+					</View>
 				</View>
 			</View>
-			<View style={styles.optionsContainer}>
-				<TouchableScale style={{ flex: 1 }} onPress={() => Progress()}>
-					<AnwserOption text="1" color="#B22D2D" />
-				</TouchableScale>
-				<TouchableScale style={{ flex: 1 }} onPress={() => ProgressR()}>
-					<AnwserOption text="2" color="#5240C0" />
-				</TouchableScale>
+			<View style={{ flex: 267 * 2, marginBottom: 20 }}>
+				<View style={styles.optionsContainer}>
+					<TouchableScale style={{ flex: 1 }} onPress={() => startQuestion()}>
+						<AnwserOption text={answer1} color="#B22D2D" icon="square" />
+					</TouchableScale>
+					<TouchableScale style={{ flex: 1 }} onPress={() => nextQuestion()}>
+						<AnwserOption text={answer2} color="#5240C0" icon="triangle" />
+					</TouchableScale>
+				</View>
+				<View style={[styles.optionsContainer]}>
+					<TouchableScale style={{ flex: 1 }} onPress={() => gameEnd()}>
+						<AnwserOption text={answer3} color="#FEC601" icon="star" />
+					</TouchableScale>
+					<TouchableScale style={{ flex: 1 }}>
+						<AnwserOption text={answer4} color="#48A646" icon="circle" />
+					</TouchableScale>
+				</View>
 			</View>
-			<View style={[styles.optionsContainer, { marginBottom: 20 }]}>
-				<TouchableScale style={{ flex: 1 }}>
-					<AnwserOption text="3" color="#FEC601" />
-				</TouchableScale>
-				<TouchableScale style={{ flex: 1 }}>
-					<AnwserOption text="4" color="#48A646" />
-				</TouchableScale>
-			</View>
-		</View>
+		</Animated.View>
 	);
 }
 
@@ -142,9 +273,11 @@ const styles = StyleSheet.create({
 		backgroundColor: "#E5E5E5",
 		justifyContent: "center",
 		alignItems: "center",
+		flexDirection: "row",
 		borderWidth: 1,
 		borderBottomWidth: 2,
 		borderTopWidth: 2,
+		borderColor: "gray",
 	},
 	optionsContainer: {
 		flex: 267,
