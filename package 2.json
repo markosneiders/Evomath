@@ -11,10 +11,9 @@
     "@react-native-masked-view/masked-view": "0.2.4",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
-    "email-validator": "^2.0.4",
     "expo": "~42.0.1",
     "expo-status-bar": "~1.0.4",
-    "formik": "^2.2.9",
+    "firebase": "8.2.3",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
@@ -23,9 +22,7 @@
     "react-native-screens": "^3.8.0",
     "react-native-touchable-scale": "^2.1.2",
     "react-native-vector-icons": "^8.1.0",
-    "react-native-web": "~0.13.12",
-    "yup": "^0.32.11",
-    "firebase": "8.2.3"
+    "react-native-web": "~0.13.12"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"
