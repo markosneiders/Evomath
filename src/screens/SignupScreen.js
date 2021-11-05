@@ -8,7 +8,7 @@ const SignupScreen = ({ navigation }) => {
       <View style={styles.logoContainer}>
         <Image
           style={{ height: 100, width: 300, resizeMode: "contain" }}
-          source={require("../assets/photos/evomathpng.png")}
+          source={require("../assets/photos/evomathlogo.png")}
         />
       </View>
       <SignupForm navigation={navigation} />
