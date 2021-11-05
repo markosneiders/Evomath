@@ -61,25 +61,13 @@ function GameOverScreen({ navigation }) {
 		]).start();
 	};
 	const transMenu = () => {
-		Animated.timing(gopacity, {
-			toValue: 0,
-			duration: 1000,
-			useNativeDriver: true,
-		}).start(() => navigation.popToTop());
+		navigation.popToTop();
 	};
 	const transMode = () => {
-		Animated.timing(gopacity, {
-			toValue: 0,
-			duration: 1000,
-			useNativeDriver: true,
-		}).start(() => navigation.navigate("ModeScreen"));
+		navigation.navigate("ModeScreen");
 	};
 	const transPlay = () => {
-		Animated.timing(gopacity, {
-			toValue: 0,
-			duration: 1000,
-			useNativeDriver: true,
-		}).start(() => navigation.navigate("GameScreen"));
+		navigation.navigate("GameScreen");
 	};
 
 	return (

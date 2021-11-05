@@ -6,19 +6,16 @@ import CircleButton from "../components/CircleButton/CircleButton";
 import Background from "../components/Background/Background";
 function AccountScreen({ navigation }) {
 	const [pic, setpic] = useState(".//");
-	useEffect(() => {
-		//Requests permision to use gallery
-		(async () => {
-			if (Platform.OS !== "web") {
-				const { status } =
-					await ImagePicker.requestMediaLibraryPermissionsAsync();
-				if (status !== "granted") {
-					alert("Sorry, we need camera roll permissions to make this work!");
-				}
-			}
-		})();
-	}, []);
+
 	const pickImage = async () => {
+		//Requests permission for gallery
+		if (Platform.OS !== "web") {
+			const { status } =
+				await ImagePicker.requestMediaLibraryPermissionsAsync();
+			if (status !== "granted") {
+				alert("Sorry, we need camera roll permissions to make this work!");
+			}
+		}
 		//Opens image picker
 		let result = await ImagePicker.launchImageLibraryAsync({
 			mediaTypes: ImagePicker.MediaTypeOptions.Images,

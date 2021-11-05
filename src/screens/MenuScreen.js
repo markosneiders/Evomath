@@ -13,13 +13,7 @@ function MenuScreen({ navigation }) {
 	const vmove = useRef(new Animated.Value(0)).current;
 	useEffect(() => {
 		rotate(Easing.inOut(Easing.ease));
-		const unsubscribe = navigation.addListener("focus", () => {
-			//when screen is focused
-			transReturn(Easing.out(Easing.ease));
-		});
-
-		return unsubscribe;
-	}, [navigation]);
+	});
 
 	const rotate = (easing) => {
 		//logo rotation aniamtion loop
@@ -48,32 +42,14 @@ function MenuScreen({ navigation }) {
 	});
 
 	// transiton animations
-	const transReturn = (easing) => {
-		//when returning to this screen
-		Animated.timing(vmove, {
-			toValue: 0,
-			duration: 1000,
-			useNativeDriver: false,
-			easing,
-		}).start();
-	};
 	const transPlay = (easing) => {
 		// when going to play screen
-		Animated.timing(vmove, {
-			toValue: 1,
-			duration: 1000,
-			useNativeDriver: false,
-			easing,
-		}).start(() => navigation.navigate("GameScreen"));
+		navigation.navigate("GameScreen");
 	};
 	const transMode = (easing) => {
 		// when going to mode screen
-		Animated.timing(vmove, {
-			toValue: -1,
-			duration: 1000,
-			useNativeDriver: false,
-			easing,
-		}).start(() => navigation.navigate("ModeScreen"));
+
+		navigation.navigate("ModeScreen");
 	};
 
 	const verticalMove = vmove.interpolate({
@@ -110,7 +86,7 @@ function MenuScreen({ navigation }) {
 						TextSize={50}
 						Color={"#5240C0"}
 						Size={220}
-						Action={() => transPlay(Easing.in(Easing.ease))}
+						Action={() => transPlay()}
 					/>
 				</View>
 				<View style={{ top: "27%", right: "-20%" }}>
@@ -119,7 +95,7 @@ function MenuScreen({ navigation }) {
 						TextSize={50}
 						Color={"#FEC601"}
 						Size={200}
-						Action={() => transMode(Easing.in(Easing.ease))}
+						Action={() => transMode()}
 					/>
 				</View>
 				<View style={{ top: "15%", right: "20%" }}>

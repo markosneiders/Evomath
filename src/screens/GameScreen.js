@@ -7,13 +7,12 @@ function GameScreen({ navigation }) {
 	useEffect(() => {
 		const unsubscribe = navigation.addListener("focus", () => {
 			//when screen is focused
-			transReturn();
+			startup();
 		});
 
 		return unsubscribe;
 	}, [navigation]);
 	const pgv = useRef(new Animated.Value(0)).current;
-	const gopacity = useRef(new Animated.Value(0)).current;
 	//const pgv = new Animated.Value(0);
 
 	const [question, setQuestion] = useState(3); //Equation and respective answers
@@ -65,11 +64,7 @@ function GameScreen({ navigation }) {
 		);
 	};
 	const gameEnd = () => {
-		Animated.timing(gopacity, {
-			toValue: 0,
-			duration: 1000, //time for bar intializing on screen open
-			useNativeDriver: false,
-		}).start(() => navigation.navigate("GameOverScreen"));
+		navigation.navigate("GameOverScreen");
 	};
 	const startup = () => {
 		setTimeout(() => setQuestion(2), 1000);
@@ -100,21 +95,8 @@ function GameScreen({ navigation }) {
 			"#32DD2E",
 		],
 	});
-	const transReturn = (easing) => {
-		//when returning to this screen
-		Animated.timing(gopacity, {
-			toValue: 1,
-			duration: 500,
-			useNativeDriver: false,
-			easing,
-		}).start(() => startup());
-	};
-	const globalOpacity = gopacity.interpolate({
-		inputRange: [0, 1],
-		outputRange: [0, 1],
-	});
 	return (
-		<Animated.View style={[styles.root, { opacity: globalOpacity }]}>
+		<Animated.View style={styles.root}>
 			<View style={styles.questionContainer}>
 				<Animated.View
 					style={{
