@@ -60,21 +60,22 @@ function HomeNavigator() {
         }}
       />
       <Stack.Screen
-				name="GameOverScreen"
-				component={GameOverScreen}
-				options={{
-					headerShown: false,
-					animation: "none",
-					gestureEnabled: false,
-				}}
-			/>
-			<Stack.Screen
-				name="AccountScreen"
-				component={AccountScreen}
-				options={{ headerShown: false, gestureEnabled: false }}
-			/>
+        name="GameOverScreen"
+        component={GameOverScreen}
+        options={{
+          headerShown: false,
+          animation: "none",
+          gestureEnabled: false,
+        }}
+      />
+      <Stack.Screen
+        name="AccountScreen"
+        component={AccountScreen}
+        options={{ headerShown: false, gestureEnabled: false }}
+      />
     </Stack.Navigator>
   );
+}
 
 export const AppNavigator = () => (
   //Exports navigator to be imported in App.js
