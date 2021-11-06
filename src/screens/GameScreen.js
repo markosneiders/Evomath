@@ -15,17 +15,19 @@ function GameScreen({ navigation }) {
 	const pgv = useRef(new Animated.Value(0)).current;
 	const op = useRef(new Animated.Value(0)).current;
 
-	const [question, setQuestion] = useState(3); //Question and respective answers
+	const [question, setQuestion] = useState(); //Question and respective answers
 	const [answer1, setAnswer1] = useState();
 	const [answer2, setAnswer2] = useState();
 	const [answer3, setAnswer3] = useState();
 	const [answer4, setAnswer4] = useState();
+	const [countdown, setCountdown] = useState();
 
 	const [resetTime, setResetTime] = useState(500);
 	const [questionTime, setQuestionTime] = useState(5000);
 
 	const startQuestion = () => {
 		//starts the timer and if it finishes ends the game
+		setCountdown();
 		Animated.timing(pgv, {
 			toValue: 0,
 			duration: questionTime, //time for bar
@@ -39,6 +41,7 @@ function GameScreen({ navigation }) {
 	};
 	const nextQuestion = () => {
 		// triggers when the correct answer is selected
+
 		Animated.timing(pgv, {
 			toValue: 1,
 			duration: resetTime, //time for bar reset
@@ -69,9 +72,11 @@ function GameScreen({ navigation }) {
 	};
 	const startup = () => {
 		//triggered once when game gets started
-		setTimeout(() => setQuestion(2), 1000);
-		setTimeout(() => setQuestion(1), 2000);
-		setTimeout(() => setQuestion(0), 3000);
+		setCountdown(3);
+		setTimeout(() => setCountdown(2), 1000);
+		setTimeout(() => setCountdown(1), 2000);
+		setTimeout(() => setCountdown(0), 3000);
+		setTimeout(() => setCountdown("Go!"), 4000);
 		Animated.timing(pgv, {
 			toValue: 1,
 			duration: 4000,
@@ -81,11 +86,12 @@ function GameScreen({ navigation }) {
 	};
 	const onFocus = () => {
 		// triggers when screen comes into focus
-		setQuestion(3);
+		setQuestion();
 		setAnswer1();
 		setAnswer2();
 		setAnswer3();
 		setAnswer4();
+		setCountdown();
 		setTimeout(
 			//delay
 			() =>
@@ -184,7 +190,7 @@ function GameScreen({ navigation }) {
 								fontWeight: "700",
 							}}
 						>
-							4726
+							0
 						</Text>
 					</View>
 				</View>
@@ -245,6 +251,25 @@ function GameScreen({ navigation }) {
 						<AnwserOption text={answer4} color="#48A646" icon="circle" />
 					</TouchableScale>
 				</View>
+			</View>
+			<View style={{ position: "absolute" }}>
+				<Text
+					style={{
+						fontSize: 200,
+						fontWeight: "700",
+						shadowColor: "#000",
+						shadowOffset: {
+							width: 5,
+							height: 5,
+						},
+						shadowOpacity: 0.25,
+						shadowRadius: 3.84,
+						opacity: 1,
+						color: "white",
+					}}
+				>
+					{countdown}
+				</Text>
 			</View>
 		</Animated.View>
 	);
