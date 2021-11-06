@@ -7,6 +7,7 @@ const range = ([playerRank, correctStreak]) => {
 };
 
 const anwserGen = (correctAnwser) => {
+  //random anwser generators
   function gen1() {
     var temp = Math.floor(
       Math.random() * (correctAnwser + 10 - correctAnwser + 1 + 1) +
@@ -46,7 +47,7 @@ const anwserGen = (correctAnwser) => {
     console.log(temp);
     return temp;
   }
-
+  //execute random gen
   function random() {
     var i = Math.floor(Math.random() * 20) % 4;
     if (i <= 0) return random();
@@ -56,7 +57,7 @@ const anwserGen = (correctAnwser) => {
     var i = random();
     eval("gen" + i + "()");
   }
-
+  //set return value of random gen to anwser
   var anwserA = execute();
   var anwserB = execute();
   var anwserC = execute();
