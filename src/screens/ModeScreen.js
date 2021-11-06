@@ -34,7 +34,7 @@ function ModeScreen({ navigation }) {
 				</View>
 				<View style={{ top: "15%", right: "-19%" }}>
 					<CircleButton
-						Text={"Casual"}
+						Text={"Practice"}
 						TextSize={50}
 						Color={"#48A646"}
 						Size={220}

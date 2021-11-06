@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Animated, Easing } from "react-native";
 import AnwserOption from "../components/AnswerOption/AnwserOption";
 import TouchableScale from "react-native-touchable-scale";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { setNestedObjectValues } from "formik";
 function GameScreen({ navigation }) {
 	useEffect(() => {
 		const unsubscribe = navigation.addListener("focus", () => {
@@ -12,8 +13,8 @@ function GameScreen({ navigation }) {
 
 		return unsubscribe;
 	}, [navigation]);
-	const pgv = useRef(new Animated.Value(0)).current;
-	const op = useRef(new Animated.Value(0)).current;
+	const pgv = useRef(new Animated.Value(0)).current; //Animated value for progress bar
+	const op = useRef(new Animated.Value(0)).current; //Animated value for global opacity
 
 	const [question, setQuestion] = useState(); //Question and respective answers
 	const [answer1, setAnswer1] = useState();
@@ -21,13 +22,16 @@ function GameScreen({ navigation }) {
 	const [answer3, setAnswer3] = useState();
 	const [answer4, setAnswer4] = useState();
 	const [countdown, setCountdown] = useState();
+	const [correctButton, setCorrectButton] = useState();
 
 	const [resetTime, setResetTime] = useState(500);
 	const [questionTime, setQuestionTime] = useState(5000);
+	const [gameState, setGameState] = useState(false); //Value for game state used for determening if buttons should be pressable
 
 	const startQuestion = () => {
 		//starts the timer and if it finishes ends the game
 		setCountdown();
+		setGameState(true);
 		Animated.timing(pgv, {
 			toValue: 0,
 			duration: questionTime, //time for bar
@@ -41,7 +45,7 @@ function GameScreen({ navigation }) {
 	};
 	const nextQuestion = () => {
 		// triggers when the correct answer is selected
-
+		setGameState(false);
 		Animated.timing(pgv, {
 			toValue: 1,
 			duration: resetTime, //time for bar reset
@@ -59,16 +63,35 @@ function GameScreen({ navigation }) {
 		setAnswer3(Math.floor(Math.random() * 20) + 10);
 
 		setAnswer4(Math.floor(Math.random() * 20) + 10);
+
+		setCorrectButton(); //Set the correct button here. When the player presses a button it will compare if the button index is equal to this state.
+	};
+	const checkAnswer = (buttonIndex) => {
+		//Checks if the pressed button index is equal to the correct buutton index. If it is then it procceds to the next question, if not then it's game over.
+		if (gameState == true) {
+			//Checks if gameState is true which means button input is allowed
+			if (buttonIndex == correctButton) {
+				nextQuestion();
+			} else {
+				gameEnd();
+			}
+		}
 	};
 	const gameEnd = () => {
 		//gets run when the game ends
-		Animated.timing(op, {
-			//fade out
-			toValue: 0,
-			duration: 1000,
-			useNativeDriver: false,
-			easing: Easing.linear,
-		}).start(() => navigation.navigate("GameOverScreen"));
+		pgv.setValue(2); //Sets progess bar value to 2 which makes it go over the scren which you cant notice but importantly 2 is equal to red so you get a full red bar easily
+		setTimeout(
+			//Note  for Roberts: Add button highlight which one was wrong and which was right.
+			() =>
+				Animated.timing(op, {
+					//fade out
+					toValue: 0,
+					duration: 1000,
+					useNativeDriver: false,
+					easing: Easing.linear,
+				}).start(() => navigation.navigate("GameOverScreen")),
+			2000
+		);
 	};
 	const startup = () => {
 		//triggered once when game gets started
@@ -110,7 +133,8 @@ function GameScreen({ navigation }) {
 		outputRange: ["0%", "100%"],
 	});
 	const pgc = pgv.interpolate({
-		inputRange: [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.5, 1],
+		//Interpolates the progress bar progress to a color
+		inputRange: [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.5, 1, 2],
 		outputRange: [
 			"red",
 			"#B22D2D",
@@ -121,6 +145,7 @@ function GameScreen({ navigation }) {
 			"red",
 			"orange",
 			"#32DD2E",
+			"red",
 		],
 	});
 	return (
@@ -236,18 +261,18 @@ function GameScreen({ navigation }) {
 			</View>
 			<View style={{ flex: 267 * 2, marginBottom: 20 }}>
 				<View style={styles.optionsContainer}>
-					<TouchableScale style={{ flex: 1 }} onPress={() => startQuestion()}>
+					<TouchableScale style={{ flex: 1 }} onPress={() => checkAnswer(1)}>
 						<AnwserOption text={answer1} color="#B22D2D" icon="square" />
 					</TouchableScale>
-					<TouchableScale style={{ flex: 1 }} onPress={() => nextQuestion()}>
+					<TouchableScale style={{ flex: 1 }} onPress={() => checkAnswer(2)}>
 						<AnwserOption text={answer2} color="#5240C0" icon="triangle" />
 					</TouchableScale>
 				</View>
 				<View style={[styles.optionsContainer]}>
-					<TouchableScale style={{ flex: 1 }} onPress={() => gameEnd()}>
+					<TouchableScale style={{ flex: 1 }} onPress={() => checkAnswer(3)}>
 						<AnwserOption text={answer3} color="#FEC601" icon="star" />
 					</TouchableScale>
-					<TouchableScale style={{ flex: 1 }}>
+					<TouchableScale style={{ flex: 1 }} onPress={() => checkAnswer(4)}>
 						<AnwserOption text={answer4} color="#48A646" icon="circle" />
 					</TouchableScale>
 				</View>
