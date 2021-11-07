@@ -27,10 +27,11 @@ const anwserGen = (correctAnwser) => {
 					correctAnwser -
 					2
 			) + 2,
-		4:
+		4: Math.floor(
 			Math.random() * (correctAnwser + 2 - correctAnwser + 1) +
-			correctAnwser +
-			1,
+				correctAnwser +
+				1
+		),
 	};
 
 	function shuffleArray(array) {

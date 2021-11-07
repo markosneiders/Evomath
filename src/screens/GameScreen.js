@@ -59,18 +59,19 @@ function GameScreen({ navigation }) {
 		}).start(() => [startQuestion(), textUpdate()]);
 	};
 	const textUpdate = () => {
+		const generated = genAddition([1000, 1]); //Generates question and answer
 		// Changes question and answers on new question
-		setQuestion(Math.floor(Math.random() * 20) + 10);
+		setQuestion(generated[0]);
 
-		setAnswer1(Math.floor(Math.random() * 20) + 10);
+		setAnswer1(generated[1]);
 
-		setAnswer2(Math.floor(Math.random() * 20) + 10);
+		setAnswer2(generated[2]);
 
-		setAnswer3(Math.floor(Math.random() * 20) + 10);
+		setAnswer3(generated[3]);
 
-		setAnswer4(Math.floor(Math.random() * 20) + 10);
+		setAnswer4(generated[4]);
 
-		setCorrectButton(); //Set the correct button here. When the player presses a button it will compare if the button index is equal to this state.
+		setCorrectButton(generated[5]); //Set the correct button here. When the player presses a button it will compare if the button index is equal to this state.
 	};
 	const checkAnswer = (buttonIndex) => {
 		//Checks if the pressed button index is equal to the correct buutton index. If it is then it procceds to the next question, if not then it's game over.
@@ -115,6 +116,7 @@ function GameScreen({ navigation }) {
 	};
 	const onFocus = () => {
 		// triggers when screen comes into focus
+		pgv.setValue(0);
 		setQuestion();
 		setAnswer1();
 		setAnswer2();
