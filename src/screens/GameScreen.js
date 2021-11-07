@@ -3,7 +3,13 @@ import { View, Text, StyleSheet, Animated, Easing } from "react-native";
 import AnwserOption from "../components/AnswerOption/AnwserOption";
 import TouchableScale from "react-native-touchable-scale";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { setNestedObjectValues } from "formik";
+//Generator import
+import {
+	genAddition,
+	genSubtraction,
+	genMultiplication,
+	genDivision,
+} from "../EquationGenerator";
 function GameScreen({ navigation }) {
 	useEffect(() => {
 		const unsubscribe = navigation.addListener("focus", () => {
