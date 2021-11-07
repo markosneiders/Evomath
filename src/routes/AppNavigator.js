@@ -15,32 +15,27 @@ import EndijaTestesana from "../screens/EndijaTestesana";
 
 const Stack = createStackNavigator();
 
-function HomeNavigator() {
-  const windowHeight = Dimensions.get("window").height;
-  const windowWidth = Dimensions.get("window").width;
-  const config = {
-    animation: "spring",
-    config: {
-      stiffness: 2000,
-      damping: 500,
-      mass: 20,
-      overshootClamping: false,
-      restDisplacementThreshold: 100,
-      restSpeedThreshold: 10,
-    },
-  };
-  return (
-    <Stack.Navigator>
-      {/*<Stack.Screen
-				name="LoginScreen"
-				component={LoginScreen}
-				options={{ headerShown: false }}
-			/>
-			<Stack.Screen
-				name="SignupScreen"
-				component={SignupScreen}
-				options={{ headerShown: false }}
-			/>*/}
+const screenOptions = {
+  headerShown: false,
+};
+
+const windowHeight = Dimensions.get("window").height;
+const windowWidth = Dimensions.get("window").width;
+const config = {
+  animation: "spring",
+  config: {
+    stiffness: 2000,
+    damping: 500,
+    mass: 20,
+    overshootClamping: false,
+    restDisplacementThreshold: 100,
+    restSpeedThreshold: 10,
+  },
+};
+
+export const SignedInStack = () => (
+  <NavigationContainer>
+    <Stack.Navigator initialRouteName="HomeScreen">
       <Stack.Screen
         name="HomeScreen"
         component={MenuScreen}
@@ -122,12 +117,17 @@ function HomeNavigator() {
         }}
       />
     </Stack.Navigator>
-  );
-}
+  </NavigationContainer>
+);
 
-export const AppNavigator = () => (
-  //Exports navigator to be imported in App.js
+export const SignedOutStack = () => (
   <NavigationContainer>
-    <HomeNavigator />
+    <Stack.Navigator
+      initialRouteName="LogInScreen"
+      screenOptions={screenOptions}
+    >
+      <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      <Stack.Screen name="SignupScreen" component={SignupScreen} />
+    </Stack.Navigator>
   </NavigationContainer>
 );

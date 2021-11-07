@@ -1,6 +1,6 @@
 import React from "react";
-import { AppNavigator } from "./src/routes/AppNavigator";
+import AuthNavigation from "./src/routes/AuthNavigation";
 
 export default function App() {
-	return <AppNavigator />;
+  return <AuthNavigation />;
 }
