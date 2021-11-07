@@ -145,7 +145,7 @@ export function genDivision([playerRank, correctStreak]) {
 
 	//Formating and return
 	division.question = division.anwser + "/" + division.b;
-	const answers = anwserGen(division.anwser); //Runs answer generation function and asigns it to answers
+	const answers = anwserGen(division.a); //Runs answer generation function and asigns it to answers
 
 	return [
 		//Returns the question, answer option 1 thru 4 and the correct answer index
