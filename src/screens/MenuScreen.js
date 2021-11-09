@@ -1,12 +1,24 @@
 import React, { useEffect, useRef } from "react";
-import { View, StyleSheet, Alert, Animated, Easing } from "react-native";
+import {
+	View,
+	StyleSheet,
+	Alert,
+	Animated,
+	Easing,
+	Image,
+	Modal,
+} from "react-native";
 
 import CircleButton from "../components/CircleButton/CircleButton"; //self made component imports
 import Background from "../components/Background/Background";
+import { useState } from "react/cjs/react.development";
 
 function MenuScreen({ navigation }) {
 	const rotv = useRef(new Animated.Value(0)).current;
 	const vmove = useRef(new Animated.Value(0)).current;
+	const [modal, SetModal] = useState(true);
+	const [modalOp, setModalOp] = useState(0);
+
 	useEffect(() => {
 		rotate(Easing.inOut(Easing.ease));
 	});
@@ -41,6 +53,8 @@ function MenuScreen({ navigation }) {
 	const transPlay = (easing) => {
 		// when going to play screen
 		navigation.navigate("GameScreen");
+		setModalOp(1);
+		SetModal(false);
 	};
 	const transMode = (easing) => {
 		// when going to mode screen
@@ -48,13 +62,8 @@ function MenuScreen({ navigation }) {
 		navigation.navigate("ModeScreen");
 	};
 
-	const verticalMove = vmove.interpolate({
-		inputRange: [-1, 0, 1],
-		outputRange: ["-100%", "0%", "100%"],
-	});
-
 	return (
-		<Animated.View style={[styles.root, { top: verticalMove }]}>
+		<View style={[styles.root]}>
 			<View
 				style={{
 					flex: 1,
@@ -83,8 +92,10 @@ function MenuScreen({ navigation }) {
 						Color={"#5240C0"}
 						Size={220}
 						Action={() => transPlay()}
+						Opacity={modalOp}
 					/>
 				</View>
+
 				<View style={{ top: "27%", right: "-20%" }}>
 					<CircleButton
 						Text={"Modes"}
@@ -128,7 +139,25 @@ function MenuScreen({ navigation }) {
 					/>
 				</View>
 			</View>
-		</Animated.View>
+			<Modal visible={modal} transparent={true}>
+				<View style={{ flex: 1, backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
+					<View
+						style={{
+							top: "40%",
+							right: "-3%",
+						}}
+					>
+						<CircleButton
+							Text={"Quick Play"}
+							TextSize={50}
+							Color={"#5240C0"}
+							Size={220}
+							Action={() => transPlay()}
+						/>
+					</View>
+				</View>
+			</Modal>
+		</View>
 	);
 }
 
