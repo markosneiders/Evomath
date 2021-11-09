@@ -35,14 +35,14 @@ const SignupForm = ({ navigation }) => {
         .auth()
         .createUserWithEmailAndPassword(email, password);
 
-      db.collection("users").add({
+      db.collection("users").doc(authUser.user.email).set({
         owner_uid: authUser.user.uid,
         username: username,
         email: authUser.user.email,
         profile_picture:
           "https://t3.ftcdn.net/jpg/00/64/67/80/360_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg",
       });
-      console.log("User created successfully", email, password);
+      // console.log("User created successfully", email, password);
     } catch (error) {
       Alert.alert("Oops...", error.message);
     }

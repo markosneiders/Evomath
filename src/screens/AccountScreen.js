@@ -4,10 +4,32 @@ import TouchableScale from "react-native-touchable-scale";
 import * as ImagePicker from "expo-image-picker";
 import CircleButton from "../components/CircleButton/CircleButton";
 import Background from "../components/Background/Background";
-import { firebase } from "../firebase";
+import { firebase, db } from "../firebase";
 
 function AccountScreen({ navigation }) {
   const [pic, setpic] = useState(".//");
+  // const [currentLoggedInUser, setCurrentLoggedInUser] = useState(null);
+
+  // const getUsername = () => {
+  //   const user = firebase.auth().currentUser;
+  //   const unsubscribe = db
+  //     .collection("users")
+  //     .where("owner_uid", "==", user.uid)
+  //     .limit(1)
+  //     .onSnapshot((snapshot) =>
+  //       snapshot.docs.map((doc) => {
+  //         setCurrentLoggedInUser({
+  //           username: doc.data().username,
+  //           profilePicture: doc.data().profile_picture,
+  //         });
+  //       })
+  //     );
+  //   return unsubscribe;
+  // };
+
+  // useEffect(() => {
+  //   getUsername();
+  // }, []);
 
   const handleSignout = async () => {
     try {

@@ -25,7 +25,7 @@ const LoginForm = ({ navigation }) => {
   const onLogin = async (email, password) => {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
-      console.log("login successful:", email, password);
+      // console.log("login successful:", email, password);
     } catch (error) {
       Alert.alert(
         "Oops...",
