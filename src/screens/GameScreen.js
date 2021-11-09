@@ -81,7 +81,6 @@ function GameScreen({ navigation }) {
 	function textUpdate() {
 		//Generates question and answer
 		// Changes question and answers on new question
-		console.log(generated);
 		setQuestion(generated[0]);
 
 		setAnswer1(generated[1]);
@@ -95,7 +94,7 @@ function GameScreen({ navigation }) {
 		setCorrectButton(generated[5]); //Set the correct button here. When the player presses a button it will compare if the button index is equal to this state.
 	}
 	const showAnswer = () => {
-		let a = generated[5];
+		let a = correctButton;
 		op1.setValue(0.5);
 		op2.setValue(0.5);
 		op3.setValue(0.5);
