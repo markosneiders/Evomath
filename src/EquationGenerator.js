@@ -136,6 +136,7 @@ export function genDivision([playerRank, correctStreak]) {
 	const division = {};
 	//Gets maxnum and min num from range()
 	//const maxNum = range([playerRank, correctStreak])[0];
+
 	//const minNum = range([playerRank, correctStreak])[1];
 
 	//Question generation

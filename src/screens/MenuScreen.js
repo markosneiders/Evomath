@@ -16,8 +16,8 @@ import { useState } from "react/cjs/react.development";
 function MenuScreen({ navigation }) {
 	const rotv = useRef(new Animated.Value(0)).current;
 	const vmove = useRef(new Animated.Value(0)).current;
-	const [modal, SetModal] = useState(true);
-	const [modalOp, setModalOp] = useState(0);
+	const [modal, SetModal] = useState(false);
+	const [modalOp, setModalOp] = useState(1);
 
 	useEffect(() => {
 		rotate(Easing.inOut(Easing.ease));
