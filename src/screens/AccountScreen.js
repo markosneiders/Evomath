@@ -5,6 +5,7 @@ import {
 	Text,
 	TouchableOpacity,
 	SafeAreaView,
+	Button,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { firebase, db } from "../firebase";
@@ -15,6 +16,7 @@ import TextIn from "../components/TextInput/TextIn";
 
 function AccountScreen({ navigation }) {
 	const [pic, setpic] = useState(".//");
+	const [test, setTest] = useState("Walter Fitzroy");
 	// const [currentLoggedInUser, setCurrentLoggedInUser] = useState(null);
 
 	// const getUsername = () => {
@@ -70,8 +72,17 @@ function AccountScreen({ navigation }) {
 	};
 	return (
 		<SafeAreaView style={styles.container}>
-			<TextIn title="E-mail" color="#5240C0" />
+			<TextIn
+				title="E-mail"
+				color="#5240C0"
+				text={test}
+				setText={setTest}
+				keyboardType={"email-address"}
+				secure={false}
+			/>
 			<TextIn title="Password" color="#B22D2D" />
+			<Text>{test}</Text>
+			<Button title="Sign out" onPress={() => handleSignout()} />
 		</SafeAreaView>
 	);
 }
@@ -81,6 +92,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: "center",
 		justifyContent: "center",
+		marginHorizontal: 20,
 	},
 });
 
