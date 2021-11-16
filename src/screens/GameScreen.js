@@ -10,7 +10,12 @@ import {
 	genMultiplication,
 	genDivision,
 } from "../EquationGenerator";
+
+import { sethighscore } from "../Redux/reducer"; //Redux stuff
+import { useSelector, useDispatch } from "react-redux";
+
 function GameScreen({ navigation }) {
+	const dispatch = useDispatch(); //Redux thing to so we can set values
 	useEffect(() => {
 		const unsubscribe = navigation.addListener("focus", () => {
 			//triggers when screen gets focused
@@ -19,6 +24,7 @@ function GameScreen({ navigation }) {
 
 		return unsubscribe;
 	}, [navigation]);
+
 	const pgv = useRef(new Animated.Value(0)).current; //Animated value for progress bar
 	const op = useRef(new Animated.Value(0)).current;
 	const op1 = useRef(new Animated.Value(1)).current;
@@ -33,7 +39,9 @@ function GameScreen({ navigation }) {
 	const [answer4, setAnswer4] = useState();
 	const [countdown, setCountdown] = useState();
 	const [correctButton, setCorrectButton] = useState();
-	const [score, setScore] = useState(0);
+
+	const [score, setScore] = useState(0); //Scores
+	const highscore = useSelector((state) => state.highscore); //Highscore from redux
 
 	const [resetTime, setResetTime] = useState(500);
 	const [questionTime, setQuestionTime] = useState(5000);
@@ -95,13 +103,12 @@ function GameScreen({ navigation }) {
 
 		setCorrectButton(generated[5]); //Set the correct button here. When the player presses a button it will compare if the button index is equal to this state.
 	}
-	const showAnswer = () => {
-		let a = correctButton;
+	const showAnswer = async () => {
 		op1.setValue(0.5);
 		op2.setValue(0.5);
 		op3.setValue(0.5);
 		op4.setValue(0.5);
-		eval("op" + a + ".setValue(1)");
+		eval("op" + correctButton + ".setValue(1)");
 	};
 	const checkAnswer = (buttonIndex) => {
 		//Checks if the pressed button index is equal to the correct buutton index. If it is then it procceds to the next question, if not then it's game over.
@@ -114,7 +121,7 @@ function GameScreen({ navigation }) {
 			}
 		}
 	};
-	const gameEnd = () => {
+	const gameEnd = async () => {
 		showAnswer();
 		//gets run when the game ends
 		pgv.setValue(2); //Sets progess bar value to 2 which makes it go over the scren which you cant notice but importantly 2 is equal to red so you get a full red bar easily
@@ -134,6 +141,7 @@ function GameScreen({ navigation }) {
 	const startup = () => {
 		//triggered once when game gets started
 		setCountdown(3);
+
 		setTimeout(() => setCountdown(2), 1000);
 		setTimeout(() => setCountdown(1), 2000);
 		setTimeout(() => setCountdown(0), 3000);
@@ -298,7 +306,7 @@ function GameScreen({ navigation }) {
 								fontWeight: "700",
 							}}
 						>
-							5484
+							{highscore}
 						</Text>
 					</View>
 				</View>

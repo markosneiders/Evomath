@@ -1,7 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import { Text, View, StyleSheet, Animated } from "react-native";
 import CircleButton from "../components/CircleButton/CircleButton";
+
+import { sethighscore } from "../Redux/reducer"; //Redux stuff
+import { useDispatch, useSelector } from "react-redux";
 function GameOverScreen({ route, navigation }) {
+	const dispatch = useDispatch(); //Redux thing to so we can set values
 	useEffect(() => {
 		const unsubscribe = navigation.addListener("focus", () => {
 			//when screen is focused
@@ -19,9 +23,14 @@ function GameOverScreen({ route, navigation }) {
 	const redopacity = useRef(new Animated.Value(0)).current;
 	const utilityopacity = useRef(new Animated.Value(0)).current;
 
+	const highscore = useSelector((state) => state.highscore); //Highscore from redux
 	const { score } = route.params;
 
 	const transReturn = () => {
+		if (score > highscore) {
+			dispatch(sethighscore(Math.floor(score)));
+		}
+
 		//when returning to this screen
 		//animation sequence for individual bubble appearance
 
