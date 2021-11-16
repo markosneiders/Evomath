@@ -33,6 +33,7 @@ function GameScreen({ navigation }) {
 	const [answer4, setAnswer4] = useState();
 	const [countdown, setCountdown] = useState();
 	const [correctButton, setCorrectButton] = useState();
+	const [score, setScore] = useState(0);
 
 	const [resetTime, setResetTime] = useState(500);
 	const [questionTime, setQuestionTime] = useState(5000);
@@ -72,6 +73,7 @@ function GameScreen({ navigation }) {
 	const nextQuestion = () => {
 		// triggers when the correct answer is selected
 		setGameState(false);
+		setScore(score + 500 + 500 * pgv.__getValue()); //Increases score based on time to answer
 		Animated.timing(pgv, {
 			toValue: 1,
 			duration: resetTime, //time for bar reset
@@ -124,7 +126,7 @@ function GameScreen({ navigation }) {
 					duration: 1000,
 					useNativeDriver: false,
 					easing: Easing.linear,
-				}).start(() => navigation.navigate("GameOverScreen")),
+				}).start(() => navigation.navigate("GameOverScreen", { score: score })),
 			2000
 		);
 	};
@@ -141,7 +143,7 @@ function GameScreen({ navigation }) {
 			duration: 4000,
 			useNativeDriver: false,
 			easing: Easing.linear,
-		}).start(() => nextQuestion());
+		}).start(() => [nextQuestion(), setScore(0)]);
 	};
 	const onFocus = () => {
 		// triggers when screen comes into focus
@@ -152,6 +154,7 @@ function GameScreen({ navigation }) {
 		setAnswer3();
 		setAnswer4();
 		setCountdown();
+		setScore(0);
 		op1.setValue(1);
 		op2.setValue(1);
 		op3.setValue(1);
@@ -256,7 +259,7 @@ function GameScreen({ navigation }) {
 								fontWeight: "700",
 							}}
 						>
-							0
+							{Math.floor(score)}
 						</Text>
 					</View>
 				</View>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Text, View, StyleSheet, Animated } from "react-native";
 import CircleButton from "../components/CircleButton/CircleButton";
-function GameOverScreen({ navigation }) {
+function GameOverScreen({ route, navigation }) {
 	useEffect(() => {
 		const unsubscribe = navigation.addListener("focus", () => {
 			//when screen is focused
@@ -18,6 +18,9 @@ function GameOverScreen({ navigation }) {
 	const greenopacity = useRef(new Animated.Value(0)).current;
 	const redopacity = useRef(new Animated.Value(0)).current;
 	const utilityopacity = useRef(new Animated.Value(0)).current;
+
+	const { score } = route.params;
+
 	const transReturn = () => {
 		//when returning to this screen
 		//animation sequence for individual bubble appearance
@@ -90,7 +93,7 @@ function GameOverScreen({ navigation }) {
 					}}
 				>
 					<CircleButton
-						Text={"Score: 6375"}
+						Text={"Score: " + Math.floor(score)}
 						TextSize={45}
 						Color={"#FEC601"}
 						Size={170}

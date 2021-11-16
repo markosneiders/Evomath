@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		width: "100%",
 		flex: 1,
-		margin: 10,
 	},
 	pictureView: {
 		backgroundColor: "#B22D2D",
