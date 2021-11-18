@@ -103,13 +103,6 @@ function GameScreen({ navigation }) {
 
 		setCorrectButton(generated[5]); //Set the correct button here. When the player presses a button it will compare if the button index is equal to this state.
 	}
-	const showAnswer = async () => {
-		op1.setValue(0.5);
-		op2.setValue(0.5);
-		op3.setValue(0.5);
-		op4.setValue(0.5);
-		eval("op" + correctButton + ".setValue(1)");
-	};
 	const checkAnswer = (buttonIndex) => {
 		//Checks if the pressed button index is equal to the correct buutton index. If it is then it procceds to the next question, if not then it's game over.
 		if (gameState == true) {
@@ -117,12 +110,16 @@ function GameScreen({ navigation }) {
 			if (buttonIndex == correctButton) {
 				nextQuestion();
 			} else {
+				op1.setValue(0.5);
+				op2.setValue(0.5);
+				op3.setValue(0.5);
+				op4.setValue(0.5);
+				eval("op" + correctButton + ".setValue(1)");
 				gameEnd();
 			}
 		}
 	};
 	const gameEnd = async () => {
-		showAnswer();
 		//gets run when the game ends
 		pgv.setValue(2); //Sets progess bar value to 2 which makes it go over the scren which you cant notice but importantly 2 is equal to red so you get a full red bar easily
 		setTimeout(
