@@ -41,6 +41,8 @@ const SignupForm = ({ navigation }) => {
         email: authUser.user.email,
         profile_picture:
           "https://t3.ftcdn.net/jpg/00/64/67/80/360_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg",
+        highscore: 0,
+        isFirstTimeLoggedIn: true,
       });
 
       authUser.user.updateProfile({
