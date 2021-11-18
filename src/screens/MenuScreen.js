@@ -13,10 +13,11 @@ import CircleButton from "../components/CircleButton/CircleButton"; //self made 
 import Background from "../components/Background/Background";
 import { useState } from "react/cjs/react.development";
 
+import { useSelector } from "react-redux"; //Redux stuff
 function MenuScreen({ navigation }) {
 	const rotv = useRef(new Animated.Value(0)).current;
 	const vmove = useRef(new Animated.Value(0)).current;
-	const [modal, SetModal] = useState(false);
+	const [modal, SetModal] = useState(useSelector((state) => state.tutorial));
 	const [modalOp, setModalOp] = useState(1);
 
 	useEffect(() => {
