@@ -53,7 +53,14 @@ function TutorialModal(props) {
 								{" "}
 								right
 							</Text>
-							<Text> answer to continue.</Text>
+							<Text> answer in time to continue.</Text>
+						</Text>
+
+						<Text style={{ fontWeight: "700", marginBottom: "10%" }}>
+							<Text style={{ color: "#B22D2D", textAlign: "center" }}>
+								P.S If you run out of time the points gained last question will
+								be removed.
+							</Text>
 						</Text>
 
 						<Text

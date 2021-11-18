@@ -18,7 +18,7 @@ import {
 	genDivision,
 } from "../EquationGenerator";
 
-import { settutorial } from "../Redux/reducer";
+import { settutorial, setscore } from "../Redux/reducer";
 import { useSelector, useDispatch } from "react-redux"; //Redux stuff
 import TutorialModal from "../components/TutorialModal/TutorialModal";
 
