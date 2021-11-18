@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Animated } from "react-native";
 import CircleButton from "../components/CircleButton/CircleButton";
 
 import { sethighscore } from "../Redux/reducer"; //Redux stuff
+import { settutorial } from "../Redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
 function GameOverScreen({ route, navigation }) {
 	const dispatch = useDispatch(); //Redux thing to so we can set values
@@ -27,6 +28,7 @@ function GameOverScreen({ route, navigation }) {
 	const { score } = route.params;
 
 	const transReturn = () => {
+		dispatch(settutorial(false));
 		if (score > highscore) {
 			dispatch(sethighscore(Math.floor(score)));
 		}
@@ -79,6 +81,7 @@ function GameOverScreen({ route, navigation }) {
 		navigation.navigate("ModeScreen");
 	};
 	const transPlay = () => {
+		navigation.popToTop();
 		navigation.navigate("GameScreen");
 	};
 

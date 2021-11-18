@@ -1,5 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
-import { View, Text, StyleSheet, Animated, Easing } from "react-native";
+import {
+	View,
+	Text,
+	StyleSheet,
+	Animated,
+	Easing,
+	TouchableOpacity,
+} from "react-native";
 import AnwserOption from "../components/AnswerOption/AnwserOption";
 import TouchableScale from "react-native-touchable-scale";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -11,8 +18,9 @@ import {
 	genDivision,
 } from "../EquationGenerator";
 
-import { sethighscore } from "../Redux/reducer"; //Redux stuff
-import { useSelector, useDispatch } from "react-redux";
+import { settutorial } from "../Redux/reducer";
+import { useSelector, useDispatch } from "react-redux"; //Redux stuff
+import TutorialModal from "../components/TutorialModal/TutorialModal";
 
 function GameScreen({ navigation }) {
 	const dispatch = useDispatch(); //Redux thing to so we can set values
@@ -48,6 +56,8 @@ function GameScreen({ navigation }) {
 	const [gameState, setGameState] = useState(false); //Value for game state used for determening if buttons should be pressable
 
 	const generated = generation();
+
+	const [modal, setModal] = useState(useSelector((state) => state.tutorial)); //Tutorial stuff
 
 	function generation() {
 		const addition = genAddition([1000, 1]);
@@ -137,6 +147,24 @@ function GameScreen({ navigation }) {
 
 	const startup = () => {
 		//triggered once when game gets started
+		if (modal == false) {
+			setCountdown(3);
+
+			setTimeout(() => setCountdown(2), 1000);
+			setTimeout(() => setCountdown(1), 2000);
+			setTimeout(() => setCountdown(0), 3000);
+			setTimeout(() => setCountdown("Go!"), 4000);
+			Animated.timing(pgv, {
+				toValue: 1,
+				duration: 4000,
+				useNativeDriver: false,
+				easing: Easing.linear,
+			}).start(() => [nextQuestion(), setScore(0)]);
+		}
+	};
+	const startupt = () => {
+		//triggered once when game gets started from tutorial
+		dispatch(settutorial(false));
 		setCountdown(3);
 
 		setTimeout(() => setCountdown(2), 1000);
@@ -353,6 +381,7 @@ function GameScreen({ navigation }) {
 					{countdown}
 				</Text>
 			</View>
+			<TutorialModal modal={modal} setModal={setModal} press={startupt} />
 		</Animated.View>
 	);
 }
