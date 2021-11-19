@@ -3,6 +3,8 @@
 const SETHIGHSCORE = "SETHIGHSCORE";
 const SETSCORE = "SETSCORE";
 const SETTUTORIAL = "SETTUTORIAL";
+const SETGAMES = "SETGAMES";
+const SETIMAGE = "SETIMAGE";
 
 // Action creators
 
@@ -15,12 +17,20 @@ export const setscore = (score) => {
 export const settutorial = (tutorial) => {
 	return { type: SETTUTORIAL, payload: tutorial };
 };
+export const setgames = (games) => {
+	return { type: SETGAMES, payload: games };
+};
+export const setimage = (image) => {
+	return { type: SETIMAGE, payload: image };
+};
 
 // Initial state
 const initialState = {
 	highscore: 0,
-	tutorial: true,
+	tutorial: false,
 	score: 0,
+	games: 0,
+	image: ".//",
 };
 
 // Root reducer
@@ -34,6 +44,12 @@ const profileReducer = (state = initialState, action) => {
 
 		case SETTUTORIAL:
 			return { ...state, tutorial: (state.tutorial = action.payload) };
+
+		case SETGAMES:
+			return { ...state, games: (state.games = action.payload) };
+
+		case SETIMAGE:
+			return { ...state, image: (state.image = action.payload) };
 
 		default:
 			return state;

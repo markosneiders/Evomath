@@ -18,13 +18,14 @@ import {
 	genDivision,
 } from "../EquationGenerator";
 
-import { settutorial, setscore } from "../Redux/reducer";
+import { settutorial, setgames } from "../Redux/reducer";
 import { useSelector, useDispatch } from "react-redux"; //Redux stuff
 import TutorialModal from "../components/TutorialModal/TutorialModal";
 
 function GameScreen({ navigation }) {
 	const dispatch = useDispatch(); //Redux thing to so we can set values
 	useEffect(() => {
+		dispatch(setgames(games + 1));
 		const unsubscribe = navigation.addListener("focus", () => {
 			//triggers when screen gets focused
 			onFocus();
@@ -50,6 +51,7 @@ function GameScreen({ navigation }) {
 
 	const [score, setScore] = useState(0); //Scores
 	const highscore = useSelector((state) => state.highscore); //Highscore from redux
+	const games = useSelector((state) => state.games); //Games played from redux
 
 	const [resetTime, setResetTime] = useState(500);
 	const [questionTime, setQuestionTime] = useState(5000);

@@ -29,6 +29,7 @@ function GameOverScreen({ route, navigation }) {
 
 	const transReturn = () => {
 		dispatch(settutorial(false));
+
 		if (score > highscore) {
 			dispatch(sethighscore(Math.floor(score)));
 		}
