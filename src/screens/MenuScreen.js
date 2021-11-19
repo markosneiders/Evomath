@@ -18,7 +18,6 @@ function MenuScreen({ navigation }) {
 	const rotv = useRef(new Animated.Value(0)).current;
 	const vmove = useRef(new Animated.Value(0)).current;
 	const [modal, SetModal] = useState(useSelector((state) => state.tutorial));
-	const [modalOp, setModalOp] = useState(1);
 
 	useEffect(() => {
 		rotate(Easing.inOut(Easing.ease));
@@ -54,7 +53,6 @@ function MenuScreen({ navigation }) {
 	const transPlay = (easing) => {
 		// when going to play screen
 		navigation.navigate("GameScreen");
-		setModalOp(1);
 		SetModal(false);
 	};
 	const transMode = (easing) => {
@@ -93,7 +91,7 @@ function MenuScreen({ navigation }) {
 						Color={"#5240C0"}
 						Size={220}
 						Action={() => transPlay()}
-						Opacity={modalOp}
+						Opacity={modal == true ? 0 : 1}
 					/>
 				</View>
 
