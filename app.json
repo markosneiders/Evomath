@@ -2,6 +2,8 @@
   "expo": {
     "name": "Evomath",
     "slug": "Evomath",
+    "privacy": "public",
+    "description": "Evomath - Brought to you by Chronos",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./expo-assets/icon.png",
@@ -25,6 +27,7 @@
     },
     "web": {
       "favicon": "./expo-assets/favicon.png"
-    }
+    },
+    "githubUrl": "https://github.com/markosneiders/Evomath"
   }
 }
