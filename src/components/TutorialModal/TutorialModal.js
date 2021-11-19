@@ -15,7 +15,7 @@ function TutorialModal(props) {
 							paddingHorizontal: "3%",
 							backgroundColor: "white",
 							flex: 1,
-							marginVertical: "20%",
+							marginVertical: "10%",
 							marginHorizontal: "10%",
 							borderRadius: 20,
 						}}
