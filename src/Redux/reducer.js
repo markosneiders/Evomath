@@ -27,7 +27,7 @@ export const setimage = (image) => {
 // Initial state
 const initialState = {
 	highscore: 0,
-	tutorial: false,
+	tutorial: true,
 	score: 0,
 	games: 0,
 	image: ".//",
