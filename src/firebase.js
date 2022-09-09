@@ -1,12 +1,12 @@
 import firebase from "firebase";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDTuTovx7c8q6AWtb6ZEFVQOuvCb3yug1Y",
+  apiKey: "",
   authDomain: "evomath-15f41.firebaseapp.com",
   projectId: "evomath-15f41",
   storageBucket: "evomath-15f41.appspot.com",
   messagingSenderId: "787226696434",
-  appId: "1:787226696434:web:c39b1f073a27990c1c0e6b",
+  appId: "",
   measurementId: "G-7HCHPN1BN9",
 };
 
