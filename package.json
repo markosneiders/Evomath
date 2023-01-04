@@ -33,7 +33,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@babel/core": "^7.19.0",
+    "@babel/core": "^7.20.12",
     "redux-devtools": "^3.7.0"
   },
   "private": true
